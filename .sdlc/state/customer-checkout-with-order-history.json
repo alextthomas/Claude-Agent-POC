@@ -1,13 +1,10 @@
 {
   "feature": "customer-checkout-with-order-history",
   "tier": null,
-  "phase": "P1",
-  "status": "awaiting:HG-0",
-  "blockers": [
-    "Branch protection on main not configured (GET .../branches/main -> protected:false)",
-    "HG-0 approval not yet recorded in GitHub"
-  ],
-  "branch": "chore/p1-initialisation",
+  "phase": "P2",
+  "status": "in-progress:P2",
+  "blockers": [],
+  "branch": "docs/prd-customer-checkout-with-order-history",
   "artifacts": {
     "charter": {
       "path": "docs/project-charter.md",
@@ -28,9 +25,12 @@
   },
   "gates": {
     "HG-0": {
-      "status": "awaiting",
-      "record": null,
-      "approver": "alextthomas"
+      "status": "approved",
+      "sha": "ebfc037",
+      "merge_sha": "dd6ea25",
+      "record": "PR #1",
+      "decided_by": "alextthomas",
+      "decided_at": "2026-10-20T18:38:32Z"
     },
     "HG-1": {
       "status": "pending"
@@ -58,5 +58,5 @@
   "review_rounds": 0,
   "open_blocking_findings": 0,
   "head_sha": null,
-  "updated_at": "2026-10-20T18:34:28.294Z"
+  "updated_at": "2026-10-20T18:44:09.845Z"
 }

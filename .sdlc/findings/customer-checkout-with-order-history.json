@@ -1236,13 +1236,19 @@
           "source": "reports/review/customer-checkout-with-order-history-critical-1f6ff05.json"
         }
       ],
-      "cycles": 1,
+      "cycles": 2,
       "reverification": [
         {
           "sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
           "reviewer": "critical-reviewer",
           "result": "Resolved (requirement level); reviewer-reported status fix-proposed",
           "source": "docs/reviews/customer-checkout-with-order-history-critical-1f6ff05.md"
+        },
+        {
+          "sha": "4b3b9ddc11aa648fbeb0c215feaf926cfb084702",
+          "reviewer": "critical-reviewer",
+          "result": "Unchanged (fix-proposed per reviewer)",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-4b3b9dd.md"
         }
       ]
     },
@@ -1288,7 +1294,15 @@
           "source": "reports/review/customer-checkout-with-order-history-critical-1f6ff05.json"
         }
       ],
-      "cycles": 0
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "4b3b9ddc11aa648fbeb0c215feaf926cfb084702",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-4b3b9dd.md"
+        }
+      ]
     },
     {
       "fingerprint": "f169f6216a7d851bcb8b6bca57eae20ac79f3bf7",
@@ -1310,7 +1324,15 @@
           "source": "reports/review/customer-checkout-with-order-history-critical-1f6ff05.json"
         }
       ],
-      "cycles": 0
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "4b3b9ddc11aa648fbeb0c215feaf926cfb084702",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved (requirement level)",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-4b3b9dd.md"
+        }
+      ]
     },
     {
       "fingerprint": "b0cfc6920d71b45c79e5a31dfe367bfe2da91108",
@@ -1332,7 +1354,15 @@
           "source": "reports/review/customer-checkout-with-order-history-critical-1f6ff05.json"
         }
       ],
-      "cycles": 0
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "4b3b9ddc11aa648fbeb0c215feaf926cfb084702",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved (PRD part)",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-4b3b9dd.md"
+        }
+      ]
     },
     {
       "fingerprint": "f2850e44760dec9ec6f53096b843fabdebf21c8f",
@@ -1354,7 +1384,15 @@
           "source": "reports/review/customer-checkout-with-order-history-critical-1f6ff05.json"
         }
       ],
-      "cycles": 0
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "4b3b9ddc11aa648fbeb0c215feaf926cfb084702",
+          "reviewer": "critical-reviewer",
+          "result": "Partially resolved (UX part out of scope)",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-4b3b9dd.md"
+        }
+      ]
     },
     {
       "fingerprint": "a3051c21aa840230341132e34299904c8af52b01",
@@ -1376,7 +1414,15 @@
           "source": "reports/review/customer-checkout-with-order-history-critical-1f6ff05.json"
         }
       ],
-      "cycles": 0
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "4b3b9ddc11aa648fbeb0c215feaf926cfb084702",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-4b3b9dd.md"
+        }
+      ]
     },
     {
       "fingerprint": "dd9815367a16008f65d98edf49807704b6109f89",
@@ -1398,7 +1444,15 @@
           "source": "reports/review/customer-checkout-with-order-history-critical-1f6ff05.json"
         }
       ],
-      "cycles": 0
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "4b3b9ddc11aa648fbeb0c215feaf926cfb084702",
+          "reviewer": "critical-reviewer",
+          "result": "Partially resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-4b3b9dd.md"
+        }
+      ]
     },
     {
       "fingerprint": "128480500f4ae6111ae117be91ab7b0b9b0d5c33",
@@ -1420,7 +1474,15 @@
           "source": "reports/review/customer-checkout-with-order-history-critical-1f6ff05.json"
         }
       ],
-      "cycles": 0
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "4b3b9ddc11aa648fbeb0c215feaf926cfb084702",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved (PRD part)",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-4b3b9dd.md"
+        }
+      ]
     },
     {
       "fingerprint": "38d4c9a098cbd2f24ac480ebed0195d15a2e66bd",
@@ -1442,8 +1504,104 @@
           "source": "reports/review/customer-checkout-with-order-history-critical-1f6ff05.json"
         }
       ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "4b3b9ddc11aa648fbeb0c215feaf926cfb084702",
+          "reviewer": "critical-reviewer",
+          "result": "Out of scope for this SHA",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-4b3b9dd.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "e16f23dbff5b3e890ca7cfcabbe0dacb3f24979a",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-049"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "Warning timing from server expiry times does not address client clock skew",
+      "phase": "HG-C-1",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-049",
+          "severity": "Medium",
+          "sha": "4b3b9ddc11aa648fbeb0c215feaf926cfb084702",
+          "source": "reports/review/customer-checkout-with-order-history-critical-4b3b9dd.json"
+        }
+      ],
+      "cycles": 0
+    },
+    {
+      "fingerprint": "365697f783a2049b7a8a01c65074525abf8bb1a4",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-050"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "Effect of user activity on a displayed absolute-limit warning is unspecified",
+      "phase": "HG-C-1",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-050",
+          "severity": "Low",
+          "sha": "4b3b9ddc11aa648fbeb0c215feaf926cfb084702",
+          "source": "reports/review/customer-checkout-with-order-history-critical-4b3b9dd.json"
+        }
+      ],
+      "cycles": 0
+    },
+    {
+      "fingerprint": "a9821cf8f8a2cc9b0f42c0bbf54c08d1b158969a",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-051"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "User activity definition still states every user-initiated request resets the idle timer",
+      "phase": "HG-C-1",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-051",
+          "severity": "Low",
+          "sha": "4b3b9ddc11aa648fbeb0c215feaf926cfb084702",
+          "source": "reports/review/customer-checkout-with-order-history-critical-4b3b9dd.json"
+        }
+      ],
+      "cycles": 0
+    },
+    {
+      "fingerprint": "ce08e45158994017c4b7963bf71afacb739765c7",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-052"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "Keep-alive retry after 403 or 429 can never succeed as specified",
+      "phase": "HG-C-1",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-052",
+          "severity": "Low",
+          "sha": "4b3b9ddc11aa648fbeb0c215feaf926cfb084702",
+          "source": "reports/review/customer-checkout-with-order-history-critical-4b3b9dd.json"
+        }
+      ],
       "cycles": 0
     }
   ],
-  "updated_at": "2026-10-20T20:51:18.634Z"
+  "updated_at": "2026-10-20T23:11:44.043Z"
 }

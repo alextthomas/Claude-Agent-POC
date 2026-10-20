@@ -2,7 +2,7 @@
   "feature": "customer-checkout-with-order-history",
   "tier": null,
   "phase": "P3",
-  "status": "rework:HG-C-1",
+  "status": "awaiting:HG-1 (HG-C-1 re-approval)",
   "blockers": [],
   "branch": "docs/prd-hgc1-session-keepalive",
   "artifacts": {
@@ -24,7 +24,7 @@
     },
     "prd": {
       "path": "docs/requirements/customer-checkout-with-order-history.md",
-      "sha": "67293cc"
+      "sha": "4b3b9dd"
     },
     "ux_spec": {
       "path": "docs/ux/customer-checkout-with-order-history.md",
@@ -41,7 +41,7 @@
       "decided_at": "2026-10-20T18:38:32Z"
     },
     "HG-1": {
-      "status": "approved",
+      "status": "stale-sections-awaiting-reapproval",
       "sha": "141afb0",
       "merge_sha": "9927ee5",
       "record": "PR #2",
@@ -80,9 +80,9 @@
     "agent": "alextthomasagent"
   },
   "review_rounds": 4,
-  "open_blocking_findings": 1,
+  "open_blocking_findings": 0,
   "head_sha": "1f6ff05",
-  "updated_at": "2026-10-20T20:51:18.634Z",
+  "updated_at": "2026-10-20T23:11:44.043Z",
   "review_verdict": {
     "round": 4,
     "sha": "67293cc",
@@ -93,5 +93,5 @@
     "CR-checkout-037 (Medium) open — route to solution-architect in P4",
     "CR-checkout-038/039 (Low), 040 (Info) architect notes"
   ],
-  "hgc1_review_rounds": 1
+  "hgc1_review_rounds": 2
 }

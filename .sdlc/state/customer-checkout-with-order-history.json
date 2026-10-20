@@ -1,13 +1,10 @@
 {
   "feature": "customer-checkout-with-order-history",
   "tier": null,
-  "phase": "P1",
-  "status": "awaiting:HG-0",
-  "blockers": [
-    "Branch protection on main not configured (GET .../branches/main -> protected:false)",
-    "HG-0 approval not yet recorded in GitHub"
-  ],
-  "branch": "chore/p1-initialisation",
+  "phase": "P2",
+  "status": "awaiting:HG-1",
+  "blockers": [],
+  "branch": "docs/prd-customer-checkout-with-order-history",
   "artifacts": {
     "charter": {
       "path": "docs/project-charter.md",
@@ -24,16 +21,25 @@
     "settings": {
       "path": ".claude/settings.json",
       "sha": "10b4532"
+    },
+    "prd": {
+      "path": "docs/requirements/customer-checkout-with-order-history.md",
+      "sha": "67293cc"
     }
   },
   "gates": {
     "HG-0": {
+      "status": "approved",
+      "sha": "ebfc037",
+      "merge_sha": "dd6ea25",
+      "record": "PR #1",
+      "decided_by": "alextthomas",
+      "decided_at": "2026-10-20T18:38:32Z"
+    },
+    "HG-1": {
       "status": "awaiting",
       "record": null,
       "approver": "alextthomas"
-    },
-    "HG-1": {
-      "status": "pending"
     },
     "HG-2": {
       "status": "pending"
@@ -55,8 +61,13 @@
     "human_approver": "alextthomas",
     "agent": "alextthomasagent"
   },
-  "review_rounds": 0,
+  "review_rounds": 4,
   "open_blocking_findings": 0,
-  "head_sha": null,
-  "updated_at": "2026-10-20T18:34:28.294Z"
+  "head_sha": "67293cc",
+  "updated_at": "2026-10-20T20:06:53.330Z",
+  "review_verdict": {
+    "round": 4,
+    "sha": "67293cc",
+    "verdict": "PASS WITH NON-BLOCKING FINDINGS"
+  }
 }

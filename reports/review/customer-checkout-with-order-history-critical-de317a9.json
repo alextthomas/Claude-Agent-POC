@@ -1,0 +1,300 @@
+[
+  {
+    "id": "CR-checkout-014",
+    "fingerprint": "c26f3b4f043f3a5c9f6596fd01d1ded52d5a3f8f",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "de317a9aea242db2d6157b6791133ed90793be90",
+    "severity": "Medium",
+    "category": "security/rate-limiting",
+    "title": "Rate limits do not cover catalogue, cart, history or callback endpoints",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "148, 290, 306"
+    },
+    "evidence": "Partially resolved. NFR-20 (L306) now sets numeric limits for catalogue and product (120/min per IP), cart, history and detail (120/min per customer), and invalid-signature callbacks (60/min per IP), and points to NFR-4 and NFR-15 for checkout and authentication. NFR-20 also says 'Every endpoint class has a rate limit', but its list leaves several classes out: the confirmation and payment-status endpoint (which the 'payment processing' page refreshes, AC-4.4 L148, and which AC-4.8 L152 treats as a separate endpoint), the order summary or checkout-start endpoint (NFR-4 L290 limits only 'checkout initiations', and AC-1.1 says the order is created at 'Pay', so it is unclear whether summary requests count), sign-out, and callbacks with a valid signature.",
+    "requirement_refs": ["NFR-4", "NFR-20", "AC-4.4", "AC-4.8"],
+    "rationale": "The NFR says every class is covered, but the list is not complete. The confirmation and status endpoint takes a payment reference from the URL and is called repeatedly, so it is the endpoint most likely to be left without a limit (OWASP API4).",
+    "recommended_fix": "Add the confirmation and payment-status, order-summary and sign-out classes to NFR-20 with numeric limits. State that 'checkout initiation' in NFR-4 means 'Pay', and say whether the summary endpoint is limited separately. State the limit, or a deliberate absence of one, for callbacks with a valid signature.",
+    "verification": "The NFR-20 table lists every endpoint class named in the ACs (catalogue, product, cart, summary, pay, confirmation/status, history, detail, register, sign-in, sign-out, callback) with a numeric limit and a 429 test.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-016",
+    "fingerprint": "f26a307f3cea5704a5b1380722ed4515d2a35832",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "de317a9aea242db2d6157b6791133ed90793be90",
+    "severity": "Low",
+    "category": "requirements/traceability",
+    "title": "Traceability table omits ACs and several NFR limits have no verifying AC",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "131, 138, 173, 183, 276, 427-456"
+    },
+    "evidence": "Partially resolved. All the round-1 gaps are fixed: REQ-1 now lists 1.4 and 11.5; REQ-9 lists 1.3, 11.8 and 14.2; REQ-11 lists 3.7, 6.2 and 13.3; REQ-19 lists 12.4; and section 6 has an NFR verification column. Gaps that remain: AC-6.3 (L173, malformed or non-existent order id returns 400 or 404) is not traced to any REQ (it is missing from the REQ-8 row L438 and the REQ-9 row L439). The REQ-11 row (L441) leaves out AC-3.12 (L138, audit event with both amounts) and AC-7.3 (L183, 'Any rejected transition is audited'). The REQ-22 row (L452) leaves out AC-3.5 (L131, paid amount equals order total) and AC-15.1 (L276, integer cents), even though the US-3 and US-15 headings cite REQ-22.",
+    "requirement_refs": [
+      "REQ-8",
+      "REQ-11",
+      "REQ-22",
+      "AC-3.5",
+      "AC-3.12",
+      "AC-6.3",
+      "AC-7.3",
+      "AC-15.1"
+    ],
+    "rationale": "QA builds regression selection and the HG-5 trace matrix from section 12. An AC with no REQ (AC-6.3) is easily left untested.",
+    "recommended_fix": "Add AC-6.3 to REQ-8 (or REQ-9). Add AC-3.12 and AC-7.3 to REQ-11. Add AC-3.5 and AC-15.1 to REQ-22.",
+    "verification": "Every AC appears under every REQ it verifies. A mechanical cross-check of the US headings against section 12 shows no AC without a REQ.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-020",
+    "fingerprint": "0353b9c1232907333c75fafe7d4991cf0461443d",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "de317a9aea242db2d6157b6791133ed90793be90",
+    "severity": "Info",
+    "category": "process/evidence",
+    "title": "Product Owner decisions recorded as accept-all without evidence in the repository",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "8, 15, 301, 379, 413-421, 460"
+    },
+    "evidence": "Not resolved; this can only be resolved at HG-1. Revision 5 (L15) records 'All others accepted as proposed' for OQ-31 to OQ-34 and OQ-36 to OQ-39, again in the orchestrator session. The OQ-35 numbers are 'proposed by the analyst, confirm at HG-1' (L301, L417), yet L8 and L425 say there are 'No open questions'. L460 now asks the Product Owner to confirm each row, which is the right mitigation. The HG-1 PR does not exist yet, so the confirmation cannot be checked.",
+    "requirement_refs": ["OQ-7", "OQ-21", "OQ-24", "OQ-25", "OQ-31", "OQ-35"],
+    "rationale": "The only binding record of 39 decisions will be the HG-1 PR review. Several of those decisions involve money and authentication (OQ-31, OQ-33, OQ-35).",
+    "recommended_fix": "In the HG-1 PR description, list each section 11.1 row as a checkbox and ask for explicit confirmation of OQ-7, OQ-21, OQ-24, OQ-25, OQ-31, OQ-33 and OQ-35 and of the residual risks R-12 and R-13. Either mark OQ-35 as open or reword L8 and L425.",
+    "verification": "The HG-1 PR shows explicit confirmation of each decision row by @alextthomas.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-021",
+    "fingerprint": "57c1a1fa6e0ed35970a9766f31efc09f1c25220d",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "de317a9aea242db2d6157b6791133ed90793be90",
+    "severity": "High",
+    "category": "security/authentication",
+    "title": "Progressive delay does not bound password guessing under concurrent requests and the stated maximum guess rate is unproven",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "91, 251, 255, 301, 320, 334, 370, 373"
+    },
+    "evidence": "The delay schedule (L251) is based on f, the number of failed attempts 'before the current attempt', and delays only the response. AC-13.3 (L255) and NFR-15 (L301) forbid any HTTP 429 from the per-email count. Nothing requires attempts for one email to be handled one at a time, or counts attempts that are still in progress. So an attacker can send N attempts for one email at once: each one waits up to 16 s, but all N passwords are checked. NFR-15 (L301) still says 'Maximum guess rate for one email is therefore about 56 attempts per 15 minutes'. That figure is true only if attempts arrive one after another. The only remaining limit is per source IP (20 sign-ins per 15 minutes), which spreading attempts across many IPs avoids. The per-IP limit is also the only protection against R-15 (L373, many sign-in responses held open for up to 16 s), and A-9 (L320) puts that off to Phase 4.",
+    "requirement_refs": [
+      "REQ-19",
+      "NFR-15",
+      "NFR-16",
+      "AC-13.3",
+      "AC-13.10",
+      "R-12",
+      "R-15",
+      "OQ-35"
+    ],
+    "rationale": "REQ-19 brute-force protection is a mandatory authentication control on a Tier 3 feature, and the replacement for hard lockout (OQ-35) does not work against parallel guessing. The PRD presents an unproven guess-rate figure as the result of the design, so the Product Owner would approve the residual risk at HG-1 based on a wrong number. This is a security weakness (guide 9.4, High). The data is synthetic, which limits the impact but does not remove the requirement.",
+    "recommended_fix": "Require that each email has at most one sign-in attempt checked at a time, and that its delay is enforced before the password is checked. Further attempts that arrive meanwhile are either queued or answered with the same generic delayed failure without checking the password. Increase f when an attempt arrives, not when it completes. Correct or remove the 56-per-15-minutes claim, or state the assumption it depends on. Add a cap on sign-in responses held open at once (global or per IP) for R-15, with behaviour defined when the cap is reached. Ask the Product Owner to re-confirm OQ-35 and R-12 with these figures.",
+    "verification": "PRD AC: 20 wrong-password attempts sent at once for one email (from more than one source IP, under the per-IP limits) result in no more password checks than the sequential schedule allows in the same elapsed time, and the responses are identical for an existing email and an unknown one. Later integration test runs this scenario.",
+    "blocking": true,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-022",
+    "fingerprint": "39246db0bd95f98987987f42fe7c8c66e7e6cdfc",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "de317a9aea242db2d6157b6791133ed90793be90",
+    "severity": "Medium",
+    "category": "requirements/idempotency",
+    "title": "Checkout attempt idempotency key is inconsistent between REQ-23, NFR-10 and AC-3.13 and cart version is undefined",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "77, 95, 106, 109, 130, 139, 146, 150, 296"
+    },
+    "evidence": "REQ-23 (L95) and NFR-10 (L296) make the idempotency key the checkout attempt, 'customer plus cart version'. REQ-5 (L77) allows at most one provider payment per attempt. But REQ-23 also says a retry after a failed, cancelled or expired order 'creates a new order', and AC-4.2 (L146) says paying again 'creates a new order'. With an unchanged cart that new order has the same customer plus cart version as the failed one, so the same key would be used again. If the key is enforced as unique, the retry is blocked; if it is not, REQ-5 is broken. AC-3.13 (L139) separately derives the provider idempotency key from the order id. 'Cart version' is never defined: the PRD does not say whether these change it: the price refresh in AC-1.4 (L109), the quantity reduction after payment in AC-4.6 (L150), or editing a line and then changing it back. AC-1.1 (L106) says 'no order record exists yet' at Checkout, which is false when an unchanged cart already has a pending order (AC-3.8).",
+    "requirement_refs": [
+      "REQ-5",
+      "REQ-23",
+      "NFR-10",
+      "AC-1.1",
+      "AC-3.4",
+      "AC-3.8",
+      "AC-3.13",
+      "AC-4.2"
+    ],
+    "rationale": "The duplicate-charge protection for R-3 depends on a precisely defined key. With two key definitions and a version counter that is never defined, the Phase 4 design has to guess, and the 100-submission concurrency test in NFR-10 can pass against whichever key is chosen while the real scenario (retry after failure) is not tested.",
+    "recommended_fix": "Define cart version (for example a counter incremented on every add, remove, quantity or price change, including the AC-1.4 refresh and the AC-4.6 reduction). Restate the key rules: at most one *active* pending order per customer plus cart version; terminal orders do not block a new order. State that the provider idempotency key is per order, and how the two keys relate. Reword AC-1.1 for the case where a pending order already exists.",
+    "verification": "PRD defines cart version and gives a single key rule. An AC covers 'failed order, unchanged cart, Pay again': exactly one new order and one new provider payment, with no duplicate at the provider.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-023",
+    "fingerprint": "3df0793e06ce1d369e3e02d35e8cd501467014d1",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "de317a9aea242db2d6157b6791133ed90793be90",
+    "severity": "Medium",
+    "category": "requirements/state-model",
+    "title": "Provider session lifetime is ambiguous and reuse of a pending order after its provider session has closed is undefined",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "95, 96, 134, 139, 149"
+    },
+    "evidence": "REQ-24 (L96) says provider sessions 'last 25 minutes'. AC-4.5 (L149) says the lifetime is '25 minutes after order creation'. A provider session can be created later than the order: AC-3.13 (L139) keeps the order pending after a timeout and creates the session on retry. With a relative 25-minute lifetime, a session created at minute 10 would outlive the 30-minute order expiry, the gap REQ-24 exists to prevent. Separately, REQ-23 (L95) and AC-3.8 (L134) reuse the pending order and provider session for an unchanged cart. Between minutes 25 and 30 that session is closed but the order is still pending, and no AC says what 'Pay' does then. The customer can neither pay nor start a new order until the expiry job runs.",
+    "requirement_refs": [
+      "REQ-23",
+      "REQ-24",
+      "AC-3.8",
+      "AC-3.13",
+      "AC-4.5",
+      "OQ-31"
+    ],
+    "rationale": "The late-payment protection depends on the provider session always ending before the order expires. As worded, a retried session breaks that. The 25-to-30-minute window is a dead end for the customer that no test would catch.",
+    "recommended_fix": "State that the provider session expires at an absolute time (order creation plus 25 minutes) whenever the session is created, and that no session is created after minute 25. Add an AC: 'Pay' on an unchanged cart whose pending order's provider session has closed cancels or expires that order early (after provider confirmation) and creates a new order.",
+    "verification": "PRD ACs for: a session created on retry at minute 10 expires at minute 25; 'Pay' at minute 27 with an unchanged cart leads to a payable session for a new order, and no more than one order is pending at any time.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-024",
+    "fingerprint": "f2cc4cadc7202a93eeab231c2aaed04af9a3cd41",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "de317a9aea242db2d6157b6791133ed90793be90",
+    "severity": "Medium",
+    "category": "requirements/contradiction",
+    "title": "Late success recovery contradicts cart handling in AC-4.6 and can produce two paid orders for the same cart",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "78, 146, 150, 151, 343, 371"
+    },
+    "evidence": "AC-4.6 (L150): 'Given my payment is verified as successful, when the order becomes paid, then ... my cart quantity is reduced'. AC-4.7 (L151): on a late success the order 'becomes paid ... and the cart is not changed'. Both apply to a late success, and neither says it takes precedence. REQ-23 and AC-4.2 (L146) let the customer pay again after failed, cancelled or expired with a new order. If order B for the same cart is then paid and a late success arrives for order A, both A and B are paid, so the customer is charged twice for one cart. Refunds are out of scope (L343), and nothing alerts an operator. REQ-6 (L78) and AC-4.2 also say the customer 'is not charged' after a failure, which AC-4.7 contradicts for failed orders.",
+    "requirement_refs": [
+      "REQ-5",
+      "REQ-6",
+      "REQ-23",
+      "AC-4.2",
+      "AC-4.6",
+      "AC-4.7",
+      "R-3",
+      "R-13"
+    ],
+    "rationale": "R-13 rates this Low likelihood and High impact and treats it as mitigated, but the mitigation produces a double charge in exactly the replacement-order case. Of AC-4.6 and AC-4.7, only one can pass as written for a late success.",
+    "recommended_fix": "State which rule applies to the cart on a late success (keep AC-4.7 and exclude the late-success case from AC-4.6). Add an AC for a late success when another paid order exists for the same cart version: the late order becomes paid, is flagged for operator attention, and an alert is raised (see CR-checkout-026). Add this case to R-13 as a residual risk the Product Owner accepts. Reword REQ-6 and AC-4.2 to 'not charged unless a later verified success arrives (AC-4.7)'.",
+    "verification": "PRD AC with an exact expected outcome for: order A expired, order B paid for the same items, then a late success for A.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-025",
+    "fingerprint": "09ad9ff4433337159db21f31c7419ae87cb45587",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "de317a9aea242db2d6157b6791133ed90793be90",
+    "severity": "Medium",
+    "category": "requirements/failure-modes",
+    "title": "Order transitions that require provider confirmation have no defined behaviour when the provider is unreachable",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "135, 139, 147, 148, 149, 293"
+    },
+    "evidence": "AC-3.9 (L135), AC-4.3 (L147) and AC-4.5 (L149) each require the server to cancel the provider session and confirm with the provider before marking the order cancelled or expired. AC-3.13 (L139) and NFR-7 (L293) cover provider failure only at 'Pay'. If the provider is down or times out at expiry, cancel or supersede time, the PRD does not say what happens: the order could stay pending_payment forever (still shown in history), or a cart change could leave the customer unable to start a new checkout (AC-3.9 creates the new order only after the old one is cancelled). It also does not say what the customer sees in that case, or how long retries continue.",
+    "requirement_refs": [
+      "REQ-24",
+      "NFR-7",
+      "AC-3.9",
+      "AC-4.3",
+      "AC-4.5",
+      "D-7"
+    ],
+    "rationale": "Partial failure across our database and the provider is the main risk in this feature (guide 9.3). The PRD defines it for the first provider call but not for the calls that close an order.",
+    "recommended_fix": "Add ACs for a provider that is unavailable during expiry, cancel and supersede. For example: the order stays pending, the job retries each run, the customer sees 'payment processing' or a retryable error, and after a stated limit (for example 24 hours) an operator alert is raised. State whether a new checkout is blocked or allowed while the old order cannot be closed.",
+    "verification": "PRD ACs exist. Later integration test: a provider stub that fails cancel calls leaves exactly one pending order, retries, and recovers to expired once the stub recovers.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-026",
+    "fingerprint": "c1bcbdd703a4dadc6343a32c0f84ef965ef3e77a",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "de317a9aea242db2d6157b6791133ed90793be90",
+    "severity": "Medium",
+    "category": "operations/alerting",
+    "title": "No alerting requirement for charged-but-not-paid outcomes and payment job failures",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "138, 151, 293, 297, 333, 343"
+    },
+    "evidence": "AC-3.12 (L138): a verified payment with the wrong amount or currency makes the order failed with an audit event, but the provider has taken money and refunds are out of scope (L343). AC-4.7 (L151) writes 'late_payment_recovered' only to the audit log. NFR-11 (L297) requires correlation ids and a health endpoint only. No NFR requires alerts on: an amount mismatch, a late payment recovered, the reconciliation or expiry job not running (D-7, L333), a spike in rejected callbacks (AC-3.7), or provider errors. NFR-7 (L293) monitors uptime only.",
+    "requirement_refs": [
+      "REQ-6",
+      "REQ-11",
+      "REQ-24",
+      "NFR-7",
+      "NFR-11",
+      "AC-3.12",
+      "AC-4.7"
+    ],
+    "rationale": "These outcomes mean a customer has been charged with no matching paid order, or that the timing rules REQ-24 depends on have silently stopped. If no one is alerted, an audit-log entry is never acted on (guide 9.3: missing alerts).",
+    "recommended_fix": "Add an observability NFR: alerts (with a target time to raise, for example 5 minutes) for an amount or currency mismatch, a late payment recovered, the reconciliation or expiry job missing two consecutive runs, rejected callbacks above a threshold, and the provider error rate above a threshold. Name the operator who receives them (P-3). Say what the customer sees under AC-3.12 when they have been charged.",
+    "verification": "PRD NFR with named alert conditions and thresholds. Later test: the stubbed scenarios fire the alerts.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-027",
+    "fingerprint": "5d0d3f91c167120b6f8da7727c950edc2926bc7e",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "de317a9aea242db2d6157b6791133ed90793be90",
+    "severity": "Low",
+    "category": "security/open-redirect",
+    "title": "Same-origin relative path rule does not cover backslash and encoded variants",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "259"
+    },
+    "evidence": "AC-13.7 (L259) gives these negative examples: https://evil.example, //evil.example and javascript:alert(1). A naive check such as 'starts with / and not //' passes all three, but still lets through `/\\evil.example` (browsers treat it as `//evil.example`), `/%2F%2Fevil.example`, `/%5Cevil.example`, and values with tab or newline characters inside the slashes.",
+    "requirement_refs": ["AC-13.7", "AC-9.3", "AC-13.4", "AC-4.9"],
+    "rationale": "These are well-known ways around open-redirect checks (OWASP A01). The AC as written can pass with a vulnerable implementation.",
+    "recommended_fix": "Define the rule as: after URL-decoding and parsing against our origin, the resolved origin must equal our origin, and the raw value must start with a single '/' followed by neither '/' nor '\\\\'. Add the backslash and encoded variants to the AC's negative examples.",
+    "verification": "PRD AC lists the backslash, encoded and control-character variants, and each lands on the catalogue.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-028",
+    "fingerprint": "a9015b40efc578ff32bcc102baceea8b24bf8f1f",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "de317a9aea242db2d6157b6791133ed90793be90",
+    "severity": "Low",
+    "category": "requirements/contradiction",
+    "title": "AC-2.3 ignoring tampered fields contradicts forbidNonWhitelisted validation",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "120, 215, 289"
+    },
+    "evidence": "AC-2.3 (L120): checkout requests with client-modified prices or totals are processed, and 'the tampered values are ignored'. NFR-3 (L289) and the CLAUDE.md rule require whitelist plus forbidNonWhitelisted on every endpoint, and AC-10.6 (L215) rejects a client-supplied price with HTTP 400. If price and total are not in the checkout contract, AC-2.3's 'stored order uses server-side prices' cannot happen, because the request is rejected first.",
+    "requirement_refs": ["REQ-2", "NFR-3", "AC-2.3", "AC-10.6"],
+    "rationale": "Under NFR-3, AC-2.3 cannot pass as written. An implementer may relax forbidNonWhitelisted on checkout to make it pass.",
+    "recommended_fix": "Reword AC-2.3: a checkout or pay request that contains price or total fields is rejected with HTTP 400 and creates no order; the server never reads amounts from the client.",
+    "verification": "PRD AC-2.3 and AC-10.6 describe the same behaviour for unknown fields.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-029",
+    "fingerprint": "e1bd800cc15b0be58ea5bed29fb313b17f4bef87",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "de317a9aea242db2d6157b6791133ed90793be90",
+    "severity": "Low",
+    "category": "requirements/nfr-measurability",
+    "title": "AC-4.4 30-second final-state target is inconsistent with 60-second reconciliation interval",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "96, 148"
+    },
+    "evidence": "AC-4.4 (L148) requires the final state to show 'within 30 seconds of the provider's result', and says reconciliation runs every 60 seconds (REQ-24, L96). If the callback is lost, the provider's result is first seen by our server at the next reconciliation, up to 60 seconds later (more if the 10-second provider timeout applies). The 30-second target then cannot be met. The AC also does not say whether 'the provider's result' means when the provider decided or when our server received it.",
+    "requirement_refs": ["REQ-24", "AC-4.4", "OQ-32"],
+    "rationale": "If the timing target can't be measured, the test will either be flaky or be weakened later.",
+    "recommended_fix": "Measure from when our server receives the result (by callback or reconciliation), or set the target for the lost-callback path to 90 seconds or less.",
+    "verification": "PRD AC-4.4 states the starting point of the measurement and a target that can be met with both the callback path and the reconciliation path.",
+    "blocking": false,
+    "status": "open"
+  }
+]

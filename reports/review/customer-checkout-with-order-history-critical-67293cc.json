@@ -1,0 +1,313 @@
+[
+  {
+    "id": "CR-checkout-020",
+    "fingerprint": "0353b9c1232907333c75fafe7d4991cf0461443d",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+    "severity": "Info",
+    "category": "process/evidence",
+    "title": "Product Owner decisions recorded as accept-all without evidence in the repository",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "5, 8, 18, 422, 465, 471, 472, 480-485"
+    },
+    "evidence": "Partially resolved; it can only be resolved at HG-1. The wording is fixed. Section 11.3 (L480-485) asks for a checkbox per decision. It lists OQ-40 'to be re-presented with the corrected figure', OQ-46 with the bound worked out (7 + floor((900 - 15) / 16) = 62), OQ-47, the AC-3.15 choice and R-12, R-13, R-15, R-16 and R-17. However: (a) OQ-46 (L471) is recorded as 'Decided by the Product Owner', but .sdlc/state/customer-checkout-with-order-history.json at this same SHA has \"status\": \"awaiting:PO-decision:CR-checkout-021\" and \"head_sha\": \"7d4107c\". The repository's own state record says the decision was still pending when the commit was made. (b) OQ-47 (L472) records 'Values from critical review recommended fixes, accepted by PO'. These are reviewer suggestions turned into Product Owner decisions with no record of the Product Owner seeing the specific numbers. (c) No HG-1 PR exists yet (not checked through gh, because my Bash access is limited to git, lint, test and scanner commands).",
+    "requirement_refs": [
+      "OQ-7",
+      "OQ-21",
+      "OQ-24",
+      "OQ-25",
+      "OQ-31",
+      "OQ-33",
+      "OQ-35",
+      "OQ-40",
+      "OQ-41",
+      "OQ-42",
+      "OQ-46",
+      "OQ-47"
+    ],
+    "rationale": "The HG-1 PR review is the only binding record of 47 decisions, several of which concern money, authentication and alerting. The state file disagrees with the PRD on whether OQ-46 has been decided.",
+    "recommended_fix": "In the HG-1 PR description, list each item in section 11.3 as a checkbox, with OQ-40 and OQ-46 showing the 62-check bound and OQ-47 showing each value. Update .sdlc/state so it no longer says it is waiting for a Product Owner decision on CR-checkout-021 (orchestrator task).",
+    "verification": "The HG-1 PR shows @alextthomas explicitly ticking each 11.3 item, including OQ-40, OQ-46 and OQ-47 with their figures.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-021",
+    "fingerprint": "57c1a1fa6e0ed35970a9766f31efc09f1c25220d",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+    "severity": "High",
+    "category": "security/authentication",
+    "title": "Progressive delay does not bound password guessing under concurrent requests and the stated maximum guess rate is unproven",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "269, 273, 281, 282, 283, 322, 411, 465, 471"
+    },
+    "evidence": "Resolved against the verification criterion at the PRD level. The US-13 preamble (L269) sets one slot per email covering an attempt that is 'waiting or being checked'. Other attempts get the generic failure 'without checking the password', and 'the slot is free again only when the holder's check has ended'. My own check of the bound: in any 900-second window, check k (k >= 2) saw f >= k-1 on arrival, so its delay is at least delay(k-1). That gives 15 + 16(n-7) <= 900, so n <= 62, which matches NFR-15 (L322) and OQ-46 (L471). AC-13.13 (L283) is the staggered scenario the verification asked for: every 3 s for 5 minutes, 15 IPs at about 7 each (within per-IP limits), at most 24 checks, identical responses for existing and unknown emails. It tells the designs apart: about 21 checks under the correct mechanism, about 90 under the old 5-per-email cap or a slot that covers only the check. AC-13.11 (L281) now expects exactly 1 check, which matches the mechanism. The per-email 429 is removed from AC-13.12 (L282). The integration-test part of the verification (burst and staggered) is a Phase 6/7 item and cannot be checked yet.",
+    "requirement_refs": [
+      "REQ-19",
+      "NFR-15",
+      "NFR-16",
+      "AC-13.3",
+      "AC-13.11",
+      "AC-13.12",
+      "AC-13.13",
+      "R-12",
+      "OQ-40",
+      "OQ-46"
+    ],
+    "rationale": "Reported as resolved for the orchestrator to set the status. Severity is unchanged for the record. The remaining part (integration tests for AC-13.11 and AC-13.13) is traced to Phase 6/7.",
+    "recommended_fix": "None at PRD level. QA must build AC-13.11 and AC-13.13 as integration tests that fail against a slot that covers only the check.",
+    "verification": "Integration tests for AC-13.11 and AC-13.13 pass, and a mutation (the slot released when the delay ends) makes AC-13.13 fail.",
+    "blocking": true,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-030",
+    "fingerprint": "sha1(security/authentication|docs/requirements/customer-checkout-with-order-history.md|r-12 states lockout denial of service no longer exists but per-email cap and single-flight allow targeted sign-in denial)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+    "severity": "Info",
+    "category": "security/authentication",
+    "title": "R-12 states lockout denial of service no longer exists but per-email cap and single-flight allow targeted sign-in denial",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "411, 484"
+    },
+    "evidence": "Partially resolved; the wording is resolved and Product Owner confirmation is pending. R-12 (L411) now reads 'Targeted sign-in denial is possible ... can keep that account from signing in for as long as the attack lasts ... the per-email slot of 1 (OQ-46) makes this denial easier'. That is correct. The 429 path for one email no longer exists, because the per-email cap was removed. The '~3 source IPs' figure is plausible: 1 attempt per 16 s is about 56 per 15 minutes, against 20 per IP. Covering the gaps around each slot release completely needs somewhat more. Section 11.3 (L484) lists R-12 for re-confirmation. One remaining point the user should know: the victim's correct password gets 'Email or password is incorrect' (L269), which may confuse users. This is accepted as part of R-12.",
+    "requirement_refs": ["R-12", "OQ-46", "NFR-15"],
+    "rationale": "The Product Owner has accepted this residual risk; the wording now describes what actually happens.",
+    "recommended_fix": "None at PRD level; Product Owner re-confirmation at HG-1.",
+    "verification": "The HG-1 PR shows R-12 ticked by @alextthomas.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-031",
+    "fingerprint": "sha1(operations/alerting|docs/requirements/customer-checkout-with-order-history.md|alert conditions have no deduplication and the sign-in cap alert can be triggered by any client)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+    "severity": "Low",
+    "category": "operations/alerting",
+    "title": "Alert conditions have no deduplication and the sign-in cap alert can be triggered by any client",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "203, 282, 329, 346"
+    },
+    "evidence": "Partially resolved. The sign-in cap part is resolved. NFR-22 (L329) and AC-7.6 (L203) aggregate the service-wide cap to 'one alert per 15 minutes with a count', the per-IP cap is audited only, and AC-7.6 contains the '100 cap events in 5 minutes ... at most one cap alert, while a mismatch in the same window still alerts' test. The verification also asked for deduplication 'per condition', and that is still missing: (a) 'more than 10 rejected callbacks in 5 minutes' is labelled low severity but has no grouping rule. Anyone can trigger it from any IP (invalid-signature callbacks are allowed at 60 per minute per IP, L346), so a continuous stream could produce an alert every 5 minutes indefinitely. (b) Long-running conditions ('job missing 2 consecutive runs', 'provider error rate above 20% over 5 minutes') are 'once per event', but the PRD does not say what one event is for a condition that lasts an hour (one alert, or one per evaluation window).",
+    "requirement_refs": ["NFR-22", "AC-7.6", "REQ-25", "OQ-47"],
+    "rationale": "An attacker who can trigger repeated low-severity alerts still adds noise for the single operator. An outage with no defined grouping produces either one alert or dozens. This is an operational-toil risk.",
+    "recommended_fix": "In NFR-22, state that the rejected-callback alert is grouped like the cap alert (one per 15 minutes with a count), and that long-running payment conditions alert once when they start, re-alert at a stated interval (for example 60 minutes) while active, and send a recovery notice.",
+    "verification": "NFR-22 gives a grouping rule for every listed condition. AC-7.6 includes '30 minutes of continuous invalid callbacks produce at most 2 rejected-callback alerts' and 'a 60-minute provider outage produces 1 start alert, at most 1 reminder and 1 recovery notice'.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-032",
+    "fingerprint": "sha1(requirements/state-model|docs/requirements/customer-checkout-with-order-history.md|retry after minute 25 under ac-3.13 and minimum remaining provider session lifetime are undefined)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+    "severity": "Low",
+    "category": "requirements/state-model",
+    "title": "Retry after minute 25 under AC-3.13 and minimum remaining provider session lifetime are undefined",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "103, 104, 148, 152, 153, 168"
+    },
+    "evidence": "Resolved against the verification criterion. AC-3.17 (L152): retry at minute 26 after a timeout leads to the old order being cancelled, exactly 1 new order, exactly 1 new provider payment with a new key, a session expiring at new creation plus 25 minutes, and at most 1 pending. AC-3.18 (L153): 'Pay' at minute 24 creates exactly 1 new order with a full-lifetime session, and 'Pay' at minute 20 (exactly 5 minutes) reuses the order. REQ-23 (L103), REQ-24 (L104), AC-3.13 (L148) and AC-4.10 (L168) use the same 5-minute / minute-20 boundary. The fix introduced two new problems, raised separately as CR-checkout-036 and CR-checkout-037.",
+    "requirement_refs": [
+      "REQ-23",
+      "REQ-24",
+      "AC-3.13",
+      "AC-3.15",
+      "AC-3.17",
+      "AC-3.18",
+      "AC-4.10"
+    ],
+    "rationale": "Reported as resolved for the orchestrator.",
+    "recommended_fix": "None for this finding.",
+    "verification": "As stated in round 3; met by AC-3.17 and AC-3.18.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-033",
+    "fingerprint": "sha1(security/open-redirect|docs/requirements/customer-checkout-with-order-history.md|return target rule does not require redirecting to the validated normalised value)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+    "severity": "Low",
+    "category": "security/open-redirect",
+    "title": "Return target rule does not require redirecting to the validated normalised value",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "277"
+    },
+    "evidence": "Partially resolved. AC-13.7 (L277) now states 'The redirect uses the path, query and fragment of the parsed, validated URL, never the raw input, and no further decoding happens after validation', and includes `/%252F%252Fevil.example` among the negative examples that 'land on the catalogue'. But the stated rule does not produce that result. The raw value starts with '/%' (a single '/' not followed by '/' or '\\'), so it passes the raw check. Decoding once gives `/%2F%2Fevil.example`, which parses against our origin as a same-origin path, so it passes the origin check. It contains no control characters. The rule therefore accepts it and redirects to the same-origin path `/%2F%2Fevil.example`. That is safe (no open redirect), but it is not 'the catalogue'. An implementation that follows the rule exactly fails this negative example, and the developer would either add an unstated rule or loosen the test.",
+    "requirement_refs": ["AC-13.7", "AC-4.9", "AC-9.3", "AC-13.4"],
+    "rationale": "An expected result that the stated rule cannot produce invites a silent interpretation or a weakened assertion later (guide 9.3).",
+    "recommended_fix": "Either add a rule, 'the once-decoded value must not contain \"%\" (no multiply-encoded input)', so that the example lands on the catalogue, or change the expected result for `/%252F%252Fevil.example` to 'stays on our origin (never reaches evil.example)'.",
+    "verification": "Each negative example in AC-13.7 produces its stated result when only the stated rule is applied.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-034",
+    "fingerprint": "sha1(requirements/testability|docs/requirements/customer-checkout-with-order-history.md|ac-4.4 does not state whether the payment processing page updates automatically)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+    "severity": "Low",
+    "category": "requirements/testability",
+    "title": "AC-4.4 does not state whether the payment processing page updates automatically",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "104, 162, 340"
+    },
+    "evidence": "Resolved against the verification criterion. AC-4.4 (L162) says the page 'checks the order status automatically every 5 seconds (12 requests a minute, within the 60-per-minute limit of NFR-20 ...)', the manual refresh is an extra option, and the 90 s figure is worked out as 60 + 10 + 5 = 75 s 'with a provider stub that responds after 10 seconds'. REQ-24 (L104) bounds a reconciliation pass at 60 s including timeouts. The NFR-20 table row (L340) names the automatic checks. Side effects are raised separately as CR-checkout-039 and CR-checkout-040.",
+    "requirement_refs": ["AC-4.4", "REQ-24", "NFR-20", "OQ-47"],
+    "rationale": "Reported as resolved for the orchestrator.",
+    "recommended_fix": "None for this finding.",
+    "verification": "As stated in round 3; met by AC-4.4.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-035",
+    "fingerprint": "sha1(requirements/traceability|docs/requirements/customer-checkout-with-order-history.md|section 12 us column and us headings disagree for req-11 and req-25)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+    "severity": "Low",
+    "category": "requirements/traceability",
+    "title": "Section 12 US column and US headings disagree for REQ-11 and REQ-25",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "111-283, 489-515"
+    },
+    "evidence": "Resolved. I checked all 25 REQ rows against all 15 US headings. For every row, the US column equals the set of stories its ACs come from; REQ-11 (L501) is now US-3, 4, 6, 7, 12, 13 and REQ-25 (L515) is US-3, 4, 7, 13. Every US heading cites every REQ whose row contains one of its ACs; for example, US-3 L132, US-4 L155 and US-13 L265 now cite REQ-11 and REQ-25. Every AC from AC-1.1 to AC-15.4 appears in at least one row.",
+    "requirement_refs": ["REQ-11", "REQ-25", "US-3", "US-4", "US-13"],
+    "rationale": "Reported as resolved for the orchestrator.",
+    "recommended_fix": "None.",
+    "verification": "As stated in round 3; met.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-036",
+    "fingerprint": "sha1(data-integrity/payments|docs/requirements/customer-checkout-with-order-history.md|early close of a pending order with an open provider session does not require cancelling the session and duplicate review covers only expired orders)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+    "severity": "Medium",
+    "category": "data-integrity/payments",
+    "title": "Early close of a pending order with an open provider session does not require cancelling the session and duplicate review covers only expired orders",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "103, 144, 150, 152, 153, 161, 165, 169"
+    },
+    "evidence": "AC-3.18 (L153, new in revision 8) closes an order whose provider session is still open (minutes 20 to 25) when 'Pay' is chosen with less than 5 minutes left: 'the old order is cancelled after the provider confirms no payment was taken'. AC-3.15 (L150) and AC-3.17 (L152) use the same wording, and REQ-23 (L103) says only 'closed early after provider confirmation'. None of them requires the server to cancel the old provider session first. AC-3.9 (L144: 'after the provider confirms its session is closed') and AC-4.3 (L161: 'the server cancels the provider session and confirms') do. A lookup showing 'no payment yet' leaves the old hosted page payable until minute 25. A customer who reaches 'Pay' at minute 24 has, by definition, opened that hosted page before, possibly in another tab, and can still complete it while the new order's session is also live. The result is two charges for the same cart. The old order then becomes paid through the late-success path (AC-4.7, L165, which does alert). But AC-4.11 (L169), the only rule that flags `duplicate_payment_review`, applies only when 'order A ... expired', not when it was cancelled by an early close.",
+    "requirement_refs": [
+      "REQ-5",
+      "REQ-23",
+      "REQ-24",
+      "AC-3.15",
+      "AC-3.17",
+      "AC-3.18",
+      "AC-4.7",
+      "AC-4.11",
+      "NFR-10",
+      "R-13"
+    ],
+    "rationale": "This is a double-charge path created by the new 5-minute minimum-lifetime rule, in a Tier 3 money flow. Impact is limited because the provider is in test mode, the window is at most 5 minutes, and the late-success alert still fires. That makes it Medium rather than High.",
+    "recommended_fix": "In REQ-23 and AC-3.15/3.17/3.18, state that the server cancels the old provider session at the provider and confirms it is closed with no payment taken before creating the new order (as AC-3.9 and AC-4.3 do). Widen AC-4.11 to 'order A expired, cancelled or failed' so any second paid order for the same cart version is flagged `duplicate_payment_review`.",
+    "verification": "AC-3.18 includes: 'Given the old hosted page is still open in another tab, when I complete payment on it after choosing Pay at minute 24, then the provider rejects it (session cancelled), and at most 1 successful charge results'. AC-4.11 covers a cancelled order A.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-037",
+    "fingerprint": "sha1(requirements/state-model|docs/requirements/customer-checkout-with-order-history.md|req-23 and ac-3.15 require a new order for a never-confirmed session contradicting the same-order retry of ac-3.13 and ac-4.10)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+    "severity": "Medium",
+    "category": "requirements/state-model",
+    "title": "REQ-23 and AC-3.15 require a new order for a never-confirmed session, contradicting the same-order retry of AC-3.13 and AC-4.10",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "103, 148, 150, 168"
+    },
+    "evidence": "Revision 8 added '(the session closed, or none was ever confirmed)' to AC-3.15 (L150; confirmed by `git diff --word-diff 7d4107c 67293cc`) and 'closed or never-confirmed session' to the REQ-23 key rule (L103). For any 'Pay' where no session was confirmed, at any order age, both now require 'the old order is cancelled ... a new order ... is created'. AC-3.13 (L148) says that after a provider timeout, 'on retry, while at least 5 minutes of the 25-minute session lifetime remain, the same order and the same provider idempotency key ... are used'. AC-4.10 (L168) gives 'a retry at minute 10 after a timeout' as creating a session for the existing order. For a retry at minute 10 after a timeout, AC-3.13 and AC-4.10 expect 1 order with the original key, while REQ-23 and AC-3.15 expect a cancelled order plus a new order with a new key. The concurrency target in NFR-10 ('retry after timeout') inherits the same ambiguity.",
+    "requirement_refs": [
+      "REQ-5",
+      "REQ-23",
+      "AC-3.13",
+      "AC-3.15",
+      "AC-3.17",
+      "AC-4.10",
+      "NFR-10"
+    ],
+    "rationale": "Two ACs give different expected order counts for the same scenario on the idempotency path of a Tier 3 payment flow. The implementer has to pick one without saying so, and one of the two tests will be rewritten to match.",
+    "recommended_fix": "Limit the 'never confirmed' branch of REQ-23 and AC-3.15 to the case where fewer than 5 minutes remain, for example: 'a closed session, or a never-confirmed session with less than 5 minutes of lifetime remaining'. AC-3.13 then governs retries up to minute 20 and AC-3.17 governs them after.",
+    "verification": "For a retry after a timeout at minutes 10, 20 and 21, exactly one AC applies to each, and REQ-23, AC-3.13, AC-3.15, AC-3.17 and AC-4.10 agree on the order count and idempotency key.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-038",
+    "fingerprint": "sha1(security/authentication|docs/requirements/customer-checkout-with-order-history.md|per-email sign-in slot has no release rule for crashed instances or abandoned requests)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+    "severity": "Low",
+    "category": "security/authentication",
+    "title": "Per-email sign-in slot has no release rule for crashed instances or abandoned requests",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "269, 361, 374"
+    },
+    "evidence": "The US-13 preamble (L269) says 'The slot is free again only when the holder's check has ended'. The slot lives in a shared store (A-9 L361, D-8 L374). Nothing says what happens if the API instance holding the slot crashes or restarts during the up-to-16-second delay. Nothing says whether a client disconnect cancels the hold, and if so whether the slot is freed. If the slot is never released, that email can never get a password check again: a hard lockout, which REQ-19 forbids ('no hard lockout').",
+    "requirement_refs": ["REQ-19", "NFR-15", "A-9", "D-8", "OQ-46"],
+    "rationale": "This is a design matter for Phase 4 (the lease on the shared store), so it is a Low note for the architect. It should still be bounded in the requirement, because without a bound one incident becomes a permanent lockout.",
+    "recommended_fix": "Add to the preamble or A-9: 'the slot is a lease that expires no later than the maximum delay plus the hash time plus a margin (for example 20 s), and a client disconnect still runs or abandons the check and frees the slot'. The architect chooses how in Phase 4.",
+    "verification": "An AC or ADR test: kill the instance holding the slot, and the next attempt for that email after the lease ends gets a password check.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-039",
+    "fingerprint": "sha1(security/session|docs/requirements/customer-checkout-with-order-history.md|automatic payment status checks may extend the 30-minute idle session timeout)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+    "severity": "Low",
+    "category": "security/session",
+    "title": "Automatic payment status checks may extend the 30-minute idle session timeout",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "162, 274, 321"
+    },
+    "evidence": "AC-4.4 (L162, new text) has the page check status automatically every 5 seconds 'until the order is expired'. NFR-14 (L321) and AC-13.4 (L274) set a 30-minute idle timeout. Nothing says whether the automatic checks count as user activity. If they do, an unattended tab keeps the session alive with no user present for up to the 30-minute order lifetime, and longer if more than one pending order is cycled. The PRD also does not say whether checking stops at a final state, or what the page does when a check returns 401 (AC-4.9 covers only the return from the provider).",
+    "requirement_refs": ["NFR-14", "AC-4.4", "AC-4.9", "AC-13.4"],
+    "rationale": "Background polling that resets idle timers is a known session-management weakness (OWASP ASVS V3). The impact is limited, because polling is bounded by order expiry and the data is synthetic.",
+    "recommended_fix": "State in AC-4.4 that automatic checks do not reset the idle timer, that checking stops at a final state or on HTTP 401 (followed by the AC-13.4 sign-in redirect), or explicitly accept the extension.",
+    "verification": "AC-4.4 states whether polling counts as activity and when it stops. A test with a tab left idle on 'payment processing' for 30 minutes shows the session expires as NFR-14 requires.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-040",
+    "fingerprint": "sha1(operations/jobs|docs/requirements/customer-checkout-with-order-history.md|reconciliation pass bound of 60 seconds is unachievable sequentially during a provider outage and may trigger job-missed alerts)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+    "severity": "Info",
+    "category": "operations/jobs",
+    "title": "Reconciliation pass bound of 60 seconds is unachievable sequentially during a provider outage and may trigger job-missed alerts",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "104, 170, 329"
+    },
+    "evidence": "REQ-24 (L104) bounds a pass at 60 s including 10 s provider timeouts. During an outage (AC-4.12, L170), every lookup takes the full 10 s, so more than 6 pending orders processed one after another overrun the pass. It is not defined whether an overrunning pass counts as a 'missed run' under NFR-22 (L329), which would raise high-severity job alerts on top of the provider-error alert.",
+    "requirement_refs": ["REQ-24", "AC-4.4", "AC-4.12", "NFR-22", "D-7"],
+    "rationale": "Design detail for Phase 4 (parallel lookups, a circuit breaker, a definition of a missed run). It is noted for the architect and does not block the PRD.",
+    "recommended_fix": "In the Phase 4 ADR for D-7, set lookup parallelism or a circuit breaker so the 60-second bound holds during outages, and define 'missed run'.",
+    "verification": "The ADR states the parallelism or circuit breaker and the missed-run definition. A test with 50 pending orders and a provider stub that times out keeps the pass within 60 s and raises no job-missed alert.",
+    "blocking": false,
+    "status": "open"
+  }
+]

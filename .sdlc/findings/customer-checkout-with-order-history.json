@@ -1,0 +1,1258 @@
+{
+  "feature": "customer-checkout-with-order-history",
+  "findings": [
+    {
+      "fingerprint": "4f6b04412e9a23724867fb9042b5f5e7e6384ca5",
+      "ids": [
+        "CR-checkout-001"
+      ],
+      "severity": "High",
+      "blocking": true,
+      "status": "open",
+      "title": "Order state model does not handle a provider success that arrives after expiry, cancellation or failure",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-001",
+          "severity": "High",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "b182df043e3fa39b7206b33328d2621e1056f632",
+      "ids": [
+        "CR-checkout-002"
+      ],
+      "severity": "High",
+      "blocking": true,
+      "status": "open",
+      "title": "Checkout attempt and order creation point are undefined, allowing duplicate charges across tabs and cart changes during pending payment",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-002",
+          "severity": "High",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "2bbb720dc39f129a3bf81da0b96e2a2c6439dd5b",
+      "ids": [
+        "CR-checkout-003"
+      ],
+      "severity": "High",
+      "blocking": true,
+      "status": "open",
+      "title": "Paid order lines are not required to snapshot product data, so re-seeding can alter paid order history",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-003",
+          "severity": "High",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "8f7eba4e243f478d50ea291c88d5d30b611f45b2",
+      "ids": [
+        "CR-checkout-004"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "Price-change detection basis and recovery path at checkout are undefined",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-004",
+          "severity": "Medium",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "1b9c4a5102fc6e71d0c0c5b966e3faca036c7de6",
+      "ids": [
+        "CR-checkout-005"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "OQ-21 cart line limit decision is garbled and has no acceptance criterion",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-005",
+          "severity": "Medium",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "0816a7d50f85b0ebf96e598a75d86f84438e1a92",
+      "ids": [
+        "CR-checkout-006"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "Authentication rule for payment endpoints contradicts provider callbacks and confirmation ownership has no AC",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-006",
+          "severity": "Medium",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "98e9180400926c8964a3c6e7a47da89f4f090d1a",
+      "ids": [
+        "CR-checkout-007"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "Post sign-in return-to-page behaviour has no same-origin restriction",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-007",
+          "severity": "Medium",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "a50eecb8bfcaf3dc9e7ca2a67ce758afc02232c9",
+      "ids": [
+        "CR-checkout-008"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "Session identifier rotation on sign-in and registration is not required",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-008",
+          "severity": "Medium",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "443e037f78e9176cbbe1feb27d211f7fc63f3d47",
+      "ids": [
+        "CR-checkout-009"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "Lockout behaviour leaks account existence, enables lockout denial of service and has undefined window semantics",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-009",
+          "severity": "Medium",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "519ae4788670a1c64c179d5e3a10a4c31380dc90",
+      "ids": [
+        "CR-checkout-010"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "Order amount bounds versus provider limits and verified amount or currency mismatch are unspecified",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-010",
+          "severity": "Medium",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "4fef0367a1c70696a1508ecbc5a2f4b5119c6a76",
+      "ids": [
+        "CR-checkout-011"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "Load model is undefined and sign-in performance target conflicts with hash cost and per-IP rate limit",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-011",
+          "severity": "Medium",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "fd5bd2f22ca297b80cad6fc5902d56cc3187576e",
+      "ids": [
+        "CR-checkout-012"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "PCI SAQ A eligibility conditions for the payment page are not specified",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-012",
+          "severity": "Medium",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "d71aa14152ecbac0e968121b79388b5d33c48183",
+      "ids": [
+        "CR-checkout-013"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "No AC for provider timeout or unknown outcome during payment initiation",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-013",
+          "severity": "Medium",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "c26f3b4f043f3a5c9f6596fd01d1ded52d5a3f8f",
+      "ids": [
+        "CR-checkout-014"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "Rate limits do not cover catalogue, cart, history or callback endpoints",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-014",
+          "severity": "Medium",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-014",
+          "severity": "Medium",
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "source": "reports/review/customer-checkout-with-order-history-critical-de317a9.json"
+        }
+      ],
+      "cycles": 2,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Partially resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        },
+        {
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-7d4107c.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "b001c2cdcbd5e67cfd424f9c4ad80b3857c81249",
+      "ids": [
+        "CR-checkout-015"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "Live credential guard AC is either-or and detection is undefined",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-015",
+          "severity": "Low",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "f26a307f3cea5704a5b1380722ed4515d2a35832",
+      "ids": [
+        "CR-checkout-016"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "Traceability table omits ACs and several NFR limits have no verifying AC",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-016",
+          "severity": "Low",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-016",
+          "severity": "Low",
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "source": "reports/review/customer-checkout-with-order-history-critical-de317a9.json"
+        }
+      ],
+      "cycles": 2,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Partially resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        },
+        {
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-7d4107c.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "df9f8fd10885fd4c3ce0e326a8d9a34db16dbf2b",
+      "ids": [
+        "CR-checkout-017"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "Password length policy is undefined in bytes versus characters and may exceed hash algorithm input limits",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-017",
+          "severity": "Low",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "ca37c1dff5debf01063b2a557cf237a16a0793f0",
+      "ids": [
+        "CR-checkout-018"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "Audit retention, immutability and pseudonymisation statements are contradictory or vague",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-018",
+          "severity": "Low",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "fe352b69b42b8e7e1d8aa3ff899918ef57ade678",
+      "ids": [
+        "CR-checkout-019"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "CSRF target wording is ambiguous and does not state sign-in and registration scope",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-019",
+          "severity": "Low",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "0353b9c1232907333c75fafe7d4991cf0461443d",
+      "ids": [
+        "CR-checkout-020"
+      ],
+      "severity": "Info",
+      "blocking": false,
+      "status": "open",
+      "title": "Product Owner decisions recorded as accept-all without evidence in the repository",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-020",
+          "severity": "Info",
+          "sha": "1f69a3b0c3b61f7e4a6722cbd73ffc67efa13beb",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f69a3b.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-020",
+          "severity": "Info",
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "source": "reports/review/customer-checkout-with-order-history-critical-de317a9.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-020",
+          "severity": "Info",
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "source": "reports/review/customer-checkout-with-order-history-critical-7d4107c.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-020",
+          "severity": "Info",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        }
+      ],
+      "cycles": 3,
+      "reverification": [
+        {
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "reviewer": "critical-reviewer",
+          "result": "Not resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-de317a9.md"
+        },
+        {
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "reviewer": "critical-reviewer",
+          "result": "Partially resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-7d4107c.md"
+        },
+        {
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "reviewer": "critical-reviewer",
+          "result": "Partially resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-67293cc.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "57c1a1fa6e0ed35970a9766f31efc09f1c25220d",
+      "ids": [
+        "CR-checkout-021"
+      ],
+      "severity": "High",
+      "blocking": true,
+      "status": "open",
+      "title": "Progressive delay does not bound password guessing under concurrent requests and the stated maximum guess rate is unproven",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-021",
+          "severity": "High",
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "source": "reports/review/customer-checkout-with-order-history-critical-de317a9.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-021",
+          "severity": "High",
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "source": "reports/review/customer-checkout-with-order-history-critical-7d4107c.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-021",
+          "severity": "High",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        }
+      ],
+      "cycles": 2,
+      "reverification": [
+        {
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "reviewer": "critical-reviewer",
+          "result": "Partially resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-7d4107c.md"
+        },
+        {
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved (PRD level)",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-67293cc.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "39246db0bd95f98987987f42fe7c8c66e7e6cdfc",
+      "ids": [
+        "CR-checkout-022"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "Checkout attempt idempotency key is inconsistent between REQ-23, NFR-10 and AC-3.13 and cart version is undefined",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-022",
+          "severity": "Medium",
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "source": "reports/review/customer-checkout-with-order-history-critical-de317a9.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-7d4107c.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "3df0793e06ce1d369e3e02d35e8cd501467014d1",
+      "ids": [
+        "CR-checkout-023"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "Provider session lifetime is ambiguous and reuse of a pending order after its provider session has closed is undefined",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-023",
+          "severity": "Medium",
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "source": "reports/review/customer-checkout-with-order-history-critical-de317a9.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-7d4107c.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "f2cc4cadc7202a93eeab231c2aaed04af9a3cd41",
+      "ids": [
+        "CR-checkout-024"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "Late success recovery contradicts cart handling in AC-4.6 and can produce two paid orders for the same cart",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-024",
+          "severity": "Medium",
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "source": "reports/review/customer-checkout-with-order-history-critical-de317a9.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-7d4107c.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "09ad9ff4433337159db21f31c7419ae87cb45587",
+      "ids": [
+        "CR-checkout-025"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "Order transitions that require provider confirmation have no defined behaviour when the provider is unreachable",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-025",
+          "severity": "Medium",
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "source": "reports/review/customer-checkout-with-order-history-critical-de317a9.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-7d4107c.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "c1bcbdd703a4dadc6343a32c0f84ef965ef3e77a",
+      "ids": [
+        "CR-checkout-026"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "No alerting requirement for charged-but-not-paid outcomes and payment job failures",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-026",
+          "severity": "Medium",
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "source": "reports/review/customer-checkout-with-order-history-critical-de317a9.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-7d4107c.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "5d0d3f91c167120b6f8da7727c950edc2926bc7e",
+      "ids": [
+        "CR-checkout-027"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "Same-origin relative path rule does not cover backslash and encoded variants",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-027",
+          "severity": "Low",
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "source": "reports/review/customer-checkout-with-order-history-critical-de317a9.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-7d4107c.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "a9015b40efc578ff32bcc102baceea8b24bf8f1f",
+      "ids": [
+        "CR-checkout-028"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "AC-2.3 ignoring tampered fields contradicts forbidNonWhitelisted validation",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-028",
+          "severity": "Low",
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "source": "reports/review/customer-checkout-with-order-history-critical-de317a9.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-7d4107c.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "e1bd800cc15b0be58ea5bed29fb313b17f4bef87",
+      "ids": [
+        "CR-checkout-029"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "AC-4.4 30-second final-state target is inconsistent with 60-second reconciliation interval",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-029",
+          "severity": "Low",
+          "sha": "de317a9aea242db2d6157b6791133ed90793be90",
+          "source": "reports/review/customer-checkout-with-order-history-critical-de317a9.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-7d4107c.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "3f374a376269d095cffe8005c6a7b5837e72622d",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-030"
+      ],
+      "severity": "Info",
+      "blocking": false,
+      "status": "open",
+      "title": "R-12 states lockout denial of service no longer exists but per-email cap and single-flight allow targeted sign-in denial",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-030",
+          "severity": "Info",
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "source": "reports/review/customer-checkout-with-order-history-critical-7d4107c.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-030",
+          "severity": "Info",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "reviewer": "critical-reviewer",
+          "result": "Partially resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-67293cc.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "a52fcdff2ae4f3223bfa1e26115bbff29d3fc589",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-031"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "Alert conditions have no deduplication and the sign-in cap alert can be triggered by any client",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-031",
+          "severity": "Low",
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "source": "reports/review/customer-checkout-with-order-history-critical-7d4107c.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-031",
+          "severity": "Low",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "reviewer": "critical-reviewer",
+          "result": "Partially resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-67293cc.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "200dfb0aa93c96ca88e1b5b540bdf8346514bdee",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-032"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "Retry after minute 25 under AC-3.13 and minimum remaining provider session lifetime are undefined",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-032",
+          "severity": "Low",
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "source": "reports/review/customer-checkout-with-order-history-critical-7d4107c.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-032",
+          "severity": "Low",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-67293cc.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "6fc9b2c093e7dbbc01e44b83b6704fe019c867df",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-033"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "Return target rule does not require redirecting to the validated normalised value",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-033",
+          "severity": "Low",
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "source": "reports/review/customer-checkout-with-order-history-critical-7d4107c.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-033",
+          "severity": "Low",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "reviewer": "critical-reviewer",
+          "result": "Partially resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-67293cc.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "4c56326b624838d63610005b17579ed0642655aa",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-034"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "AC-4.4 does not state whether the payment processing page updates automatically",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-034",
+          "severity": "Low",
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "source": "reports/review/customer-checkout-with-order-history-critical-7d4107c.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-034",
+          "severity": "Low",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-67293cc.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "cfde1ce1c8861358b7c8f5267e253ce121a870ec",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-035"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "Section 12 US column and US headings disagree for REQ-11 and REQ-25",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-035",
+          "severity": "Low",
+          "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+          "source": "reports/review/customer-checkout-with-order-history-critical-7d4107c.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-035",
+          "severity": "Low",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-67293cc.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "56c1dea6aee1ef5e7658008439a42564794e571a",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-036"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "Early close of a pending order with an open provider session does not require cancelling the session and duplicate review covers only expired orders",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-036",
+          "severity": "Medium",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        }
+      ],
+      "cycles": 0
+    },
+    {
+      "fingerprint": "a928fd2f9c895f1e0d78d32ef02ad7e818da230f",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-037"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "REQ-23 and AC-3.15 require a new order for a never-confirmed session, contradicting the same-order retry of AC-3.13 and AC-4.10",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-037",
+          "severity": "Medium",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        }
+      ],
+      "cycles": 0
+    },
+    {
+      "fingerprint": "eedb7fcace29658e958b38a90c292ea74c22cc5c",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-038"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "Per-email sign-in slot has no release rule for crashed instances or abandoned requests",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-038",
+          "severity": "Low",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        }
+      ],
+      "cycles": 0
+    },
+    {
+      "fingerprint": "121389737a96c3ffa751c49ae84a6025930fae3c",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-039"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "Automatic payment status checks may extend the 30-minute idle session timeout",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-039",
+          "severity": "Low",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        }
+      ],
+      "cycles": 0
+    },
+    {
+      "fingerprint": "14727fbe6767cf15e739b7d358b08159d2282428",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-040"
+      ],
+      "severity": "Info",
+      "blocking": false,
+      "status": "open",
+      "title": "Reconciliation pass bound of 60 seconds is unachievable sequentially during a provider outage and may trigger job-missed alerts",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-040",
+          "severity": "Info",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        }
+      ],
+      "cycles": 0
+    }
+  ],
+  "updated_at": "2026-10-20T20:06:53.330Z"
+}

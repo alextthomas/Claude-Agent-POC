@@ -2,37 +2,54 @@
   "feature": "customer-checkout-with-order-history",
   "tier": null,
   "phase": "P1",
-  "status": "blocked:P1",
+  "status": "awaiting:HG-0",
   "blockers": [
-    "gh not signed in as alextthomasagent (gh auth status: no accounts); collaborator invite unverified",
-    ".github/CODEOWNERS missing (human to copy docs/governance/CODEOWNERS.proposed)",
-    "Branch protection on main not configured (GET .../branches/main/protection -> 404 Branch not protected)",
-    "Settings deny rules for gh auth / gh pr review / git config --global not yet added (human to apply)",
-    "Phase 1 artifacts uncommitted; HG-0 PR not opened"
+    "Branch protection on main not configured (GET .../branches/main -> protected:false)",
+    "HG-0 approval not yet recorded in GitHub"
   ],
   "branch": "chore/p1-initialisation",
   "artifacts": {
-    "charter": { "path": "docs/project-charter.md", "sha": null },
+    "charter": {
+      "path": "docs/project-charter.md",
+      "sha": "7c81c04"
+    },
     "role_register": {
       "path": "docs/governance/role-register.md",
-      "sha": null
+      "sha": "7c81c04"
     },
-    "codeowners_proposed": {
-      "path": "docs/governance/CODEOWNERS.proposed",
-      "sha": null
+    "codeowners": {
+      "path": ".github/CODEOWNERS",
+      "sha": "7c81c04"
+    },
+    "settings": {
+      "path": ".claude/settings.json",
+      "sha": "10b4532"
     }
   },
   "gates": {
     "HG-0": {
-      "status": "pending",
-      "note": "Enabled (default). Approver: @alextthomas"
+      "status": "awaiting",
+      "record": null,
+      "approver": "alextthomas"
     },
-    "HG-1": { "status": "pending" },
-    "HG-2": { "status": "pending" },
-    "HG-3": { "status": "pending" },
-    "HG-4": { "status": "pending" },
-    "HG-5": { "status": "pending" },
-    "HG-6": { "status": "pending" }
+    "HG-1": {
+      "status": "pending"
+    },
+    "HG-2": {
+      "status": "pending"
+    },
+    "HG-3": {
+      "status": "pending"
+    },
+    "HG-4": {
+      "status": "pending"
+    },
+    "HG-5": {
+      "status": "pending"
+    },
+    "HG-6": {
+      "status": "pending"
+    }
   },
   "identities": {
     "human_approver": "alextthomas",
@@ -41,5 +58,5 @@
   "review_rounds": 0,
   "open_blocking_findings": 0,
   "head_sha": null,
-  "updated_at": "2026-10-20T00:00:00Z"
+  "updated_at": "2026-10-20T18:34:28.294Z"
 }

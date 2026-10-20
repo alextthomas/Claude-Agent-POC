@@ -1,6 +1,6 @@
 # Gate Role Register
 
-Status: Draft for HG-0 | Owner: @alextthomas (Engineering Lead) | Date: 2026-10-20
+Status: Submitted for HG-0 | Owner: @alextthomas (Engineering Lead) | Date: 2026-10-20
 
 Authority is enforced by GitHub (CODEOWNERS, branch protection, environment reviewers),
 not by this file. This file records who holds each role and why.
@@ -47,5 +47,5 @@ Branch protection for `main` (Settings → Branches → Add rule, or Rulesets):
 Environment `production` (created in Phase 9): required reviewer @alextthomas,
 "Prevent self-review" on, deployment branches limited to `main`.
 
-CODEOWNERS: copy `docs/governance/CODEOWNERS.proposed` to `.github/CODEOWNERS` yourself;
-agents are denied write access to that path.
+CODEOWNERS: `.github/CODEOWNERS` (committed by @alextthomas in 7c81c04); agents are denied
+write access to that path.

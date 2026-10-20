@@ -2,7 +2,7 @@
   "feature": "customer-checkout-with-order-history",
   "tier": null,
   "phase": "P2",
-  "status": "rework:P2",
+  "status": "awaiting:PO-decision:CR-checkout-021",
   "blockers": [],
   "branch": "docs/prd-customer-checkout-with-order-history",
   "artifacts": {
@@ -24,7 +24,7 @@
     },
     "prd": {
       "path": "docs/requirements/customer-checkout-with-order-history.md",
-      "sha": "de317a9"
+      "sha": "7d4107c"
     }
   },
   "gates": {
@@ -59,8 +59,8 @@
     "human_approver": "alextthomas",
     "agent": "alextthomasagent"
   },
-  "review_rounds": 2,
+  "review_rounds": 3,
   "open_blocking_findings": 1,
-  "head_sha": "de317a9",
-  "updated_at": "2026-10-20T19:23:38.990Z"
+  "head_sha": "7d4107c",
+  "updated_at": "2026-10-20T19:53:05.851Z"
 }

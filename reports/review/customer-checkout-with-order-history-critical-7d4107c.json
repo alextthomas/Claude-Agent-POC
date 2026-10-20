@@ -1,0 +1,185 @@
+[
+  {
+    "id": "CR-checkout-020",
+    "fingerprint": "0353b9c1232907333c75fafe7d4991cf0461443d",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+    "severity": "Info",
+    "category": "process/evidence",
+    "title": "Product Owner decisions recorded as accept-all without evidence in the repository",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "8, 17, 405, 443, 448-453, 457, 461-466, 502"
+    },
+    "evidence": "Partially resolved; this can only be resolved at HG-1. The wording is fixed. L8 now says there are no open questions, and that section 11.3 lists the decisions still waiting for re-confirmation. OQ-35 (L443) says its numbers are superseded by OQ-40. Section 11.3 (L461-466) asks for a checkbox per decision, the AC-3.15 choice and residual risks R-12, R-13, R-15, R-16 and R-17. However, revision 7 (L17) again records an orchestrator-session 'accept all' for OQ-40 to OQ-45, which are all security, money and alerting decisions. Each is an 'Accepted default' of the analyst's proposal (L448-453). The HG-1 PR does not exist yet, so explicit confirmation cannot be checked. Note also that the OQ-40 '62 checks per 15 minutes' figure the Product Owner accepted is wrong (see CR-checkout-021).",
+    "requirement_refs": [
+      "OQ-7",
+      "OQ-21",
+      "OQ-24",
+      "OQ-25",
+      "OQ-31",
+      "OQ-33",
+      "OQ-35",
+      "OQ-40",
+      "OQ-41",
+      "OQ-42",
+      "OQ-43",
+      "OQ-45"
+    ],
+    "rationale": "The HG-1 PR review will be the only binding record of 45 decisions, several of which concern money, authentication and alerting.",
+    "recommended_fix": "In the HG-1 PR description, list each item in section 11.3 as a checkbox. Re-present OQ-40 with the corrected guess-rate figure after CR-checkout-021 is fixed.",
+    "verification": "The HG-1 PR shows @alextthomas explicitly confirming each 11.3 item, including OQ-40 with the corrected figure.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-021",
+    "fingerprint": "57c1a1fa6e0ed35970a9766f31efc09f1c25220d",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+    "severity": "High",
+    "category": "security/authentication",
+    "title": "Progressive delay does not bound password guessing under concurrent requests and the stated maximum guess rate is unproven",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "85, 253, 257, 265, 266, 305, 394, 398, 448"
+    },
+    "evidence": "Partially resolved. The simultaneous-burst case is now handled. The US-13 preamble (L253) counts each attempt in f when it arrives, applies the delay before the password check, and allows only one password check in flight per email. AC-13.11 (L265) tests 20 attempts sent at the same moment, and AC-13.12 (L266) caps waiting responses at 5 per IP, 5 per email and 200 service-wide. The weakness: the delay is a per-request wait, not a limit on how often passwords are checked. Single-flight only rejects an attempt whose delay ends while another check is still running (100-500 ms, NFR-13 L303). The attacker first pushes f to 7 or more, so every new attempt waits 16 s. They then keep 5 attempts waiting for one email (the per-email cap), sent about 3.2 s apart. Each attempt finishes waiting about 3.2 s after the previous one, when no other check is in flight, so every attempt gets a password check. That is 5 checks per 16 s, about 7 + 885/3.2 ≈ 283 checks per 15 minutes. That needs about 283 attempts, or about 15 source IPs at 20 attempts per IP per 15 minutes; each IP waits on at most 1-2 attempts, well under its cap of 5. NFR-15 (L305) and OQ-40 (L448) state 'at most about 62 password checks per email in any 15-minute window ... independent of the number of source IPs', and R-12 (L394) repeats it. That figure is about 4.5 times too low. AC-13.11's expected result ('then at most one per 16 seconds') contradicts the mechanism in the preamble, and AC-13.11's own scenario (all 20 at the same moment, so the f>=7 attempts all finish waiting together) would pass against an implementation that breaks the bound.",
+    "requirement_refs": [
+      "REQ-19",
+      "NFR-15",
+      "NFR-16",
+      "AC-13.3",
+      "AC-13.11",
+      "AC-13.12",
+      "R-12",
+      "R-16",
+      "OQ-40"
+    ],
+    "rationale": "REQ-19 (L85) explicitly requires brute-force protection 'that holds under concurrent requests'. Built as written, this mandatory control allows about 4.5 times the guess rate the Product Owner accepted at OQ-40, so the residual risk would be approved on a wrong number. This is a security weakness in a Tier 3 authentication control (guide 9.4, High). It is not a residual risk the Product Owner has already accepted: OQ-40 accepted 62, not about 283. Synthetic data limits the impact but does not remove the requirement.",
+    "recommended_fix": "Turn the schedule into minimum spacing between password checks per email: a check may start no earlier than the end of the previous check for that email plus delay(f). Attempts that become eligible before then get the generic failure without a password check. An alternative is to cap waiting responses per email at 1 and reject later arrivals with the generic delayed failure. Then either keep the 62 figure and show how it is reached under staggered arrivals, or restate the true bound and have the Product Owner re-confirm OQ-40 and R-12.",
+    "verification": "PRD has an AC for staggered arrival: attempts for one email every 3 s for at least 5 minutes from 15 or more IPs (each within the per-IP limits) produce no more password checks than the sequential schedule allows in the same elapsed time, with identical responses for existing and unknown emails. NFR-15's figure matches the mechanism. A later integration test runs both the burst (AC-13.11) and the staggered scenario.",
+    "blocking": true,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-030",
+    "fingerprint": "sha1(security/authentication|docs/requirements/customer-checkout-with-order-history.md|r-12 states lockout denial of service no longer exists but per-email cap and single-flight allow targeted sign-in denial) - to be computed by orchestrator",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+    "severity": "Info",
+    "category": "security/authentication",
+    "title": "R-12 states lockout denial of service no longer exists but per-email cap and single-flight allow targeted sign-in denial",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "253, 266, 394, 443"
+    },
+    "evidence": "R-12 (L394): 'Lockout denial of service no longer exists (no hard lockout).' An attacker who keeps 5 attempts waiting for a victim's email causes the victim's own attempts to be answered immediately with HTTP 429 (AC-13.12, L266: 'more than 5 ... for one email'). An attacker who keeps one attempt in flight causes the victim's correct password to get 'Email or password is incorrect' without a password check (L253). Kept up (about 5 requests per 16 s, roughly 15 IPs given the per-IP limits), this blocks a targeted account indefinitely, which is the lockout outcome OQ-35 (L443) set out to avoid. R-12 does mention 'answered with a generic failure', but it does not mention the 429 path or say that the denial can be indefinite.",
+    "requirement_refs": ["R-12", "AC-13.12", "OQ-35", "OQ-40", "NFR-15"],
+    "rationale": "The Product Owner has accepted R-12 as a risk decision, so this is Info (no escalation). The risk text should still describe the actual outcome so that the acceptance is informed.",
+    "recommended_fix": "Reword R-12: 'An attacker who knows a victim's email and controls about 15 or more IPs can keep that account from signing in for as long as the attack lasts (429 or generic failure); there is no hard lockout, but targeted denial is possible.' Have the Product Owner re-confirm it at HG-1.",
+    "verification": "R-12 wording describes targeted denial through the per-email cap and single-flight, and the Product Owner re-confirms it at HG-1.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-031",
+    "fingerprint": "sha1(operations/alerting|docs/requirements/customer-checkout-with-order-history.md|alert conditions have no deduplication and the sign-in cap alert can be triggered by any client) - to be computed by orchestrator",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+    "severity": "Low",
+    "category": "operations/alerting",
+    "title": "Alert conditions have no deduplication and the sign-in cap alert can be triggered by any client",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "187, 266, 312, 451"
+    },
+    "evidence": "AC-13.12 (L266) produces an alert for every attempt that hits a cap. The per-IP cap is 5 waiting responses, which anyone can reach by sending 6 sign-in requests for any email. NFR-22 (L312) and AC-7.6 (L187) list 'the sign-in held-response cap reached' as an alert condition, with no deduplication, aggregation window or severity. The same applies to 'late payment recovered' and 'duplicate payment review', which fire once per event. That is right for money events, but nothing says how repeated firings are grouped.",
+    "requirement_refs": ["NFR-22", "AC-7.6", "AC-13.12", "REQ-25", "OQ-43"],
+    "rationale": "An attacker can flood the single operator with alerts. That hides the money alerts (mismatch, duplicate payment) the alerting exists for, which is an operational-toil and missing-alert risk.",
+    "recommended_fix": "State the aggregation for the cap alert (for example one alert per cap type per 15 minutes with a count, and the per-IP cap audited only, not alerted). Keep per-event alerts for money conditions. Separate payment alerts from abuse alerts by severity.",
+    "verification": "NFR-22 states deduplication and aggregation per condition. AC-7.6 includes '100 cap events in 5 minutes produce at most one cap alert, while a mismatch in the same window still alerts'.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-032",
+    "fingerprint": "sha1(requirements/state-model|docs/requirements/customer-checkout-with-order-history.md|retry after minute 25 under ac-3.13 and minimum remaining provider session lifetime are undefined) - to be computed by orchestrator",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+    "severity": "Low",
+    "category": "requirements/state-model",
+    "title": "Retry after minute 25 under AC-3.13 and minimum remaining provider session lifetime are undefined",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "90, 134, 136, 152"
+    },
+    "evidence": "AC-3.13 (L134) says that after a provider timeout, 'on retry the same order and the same provider idempotency key ... are used'. AC-4.10 (L152) says 'no provider session is created for an order after minute 25'. A retry at minute 26 on an order with no confirmed session therefore cannot follow both rules. AC-3.15 (L136) covers a session that 'has closed', but it is not clear whether it applies when no session was ever confirmed. Separately, nothing sets a minimum remaining lifetime: 'Pay' at minute 24:50 creates or reuses a session that expires 10 s later.",
+    "requirement_refs": ["REQ-24", "AC-3.13", "AC-3.15", "AC-4.10"],
+    "rationale": "These edge cases at the session boundary leave the customer stuck until minute 30, or get resolved silently by the implementer.",
+    "recommended_fix": "State that AC-3.15 also applies when no confirmed session exists after minute 25. Set a minimum remaining lifetime (for example 5 minutes) below which 'Pay' closes the old order early and creates a new one, as AC-3.15 does.",
+    "verification": "PRD ACs for: a retry at minute 26 after an AC-3.13 timeout, and 'Pay' at minute 24 with an unchanged cart. Each has an exact expected order count and session outcome.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-033",
+    "fingerprint": "sha1(security/open-redirect|docs/requirements/customer-checkout-with-order-history.md|return target rule does not require redirecting to the validated normalised value) - to be computed by orchestrator",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+    "severity": "Low",
+    "category": "security/open-redirect",
+    "title": "Return target rule does not require redirecting to the validated normalised value",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "151, 206, 258, 261"
+    },
+    "evidence": "AC-13.7 (L261) defines how a return target is checked (decode once, parse against our origin, rules on the raw value) but not which value is then used for the redirect. If the raw value is checked but a value decoded a second time is used (for example by the React router or a second decode step), `/%252F%252Fevil.example` passes the check (single decode gives `/%2F%2Fevil.example`, same origin) and becomes `//evil.example` when used. Double-encoded inputs are not among the negative examples.",
+    "requirement_refs": ["AC-13.7", "AC-4.9", "AC-9.3", "AC-13.4"],
+    "rationale": "A mismatch between the value checked and the value used is a well-known way around open-redirect checks (OWASP A01). CR-checkout-027 is resolved on its own verification criterion; this is a separate gap.",
+    "recommended_fix": "Add to AC-13.7: 'The redirect uses the path, query and fragment of the parsed, validated URL, never the raw input, and no further decoding happens after validation.' Add `/%252F%252Fevil.example` to the negative examples.",
+    "verification": "AC-13.7 states which value is used and includes the double-encoded example, which lands on the catalogue.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-034",
+    "fingerprint": "sha1(requirements/testability|docs/requirements/customer-checkout-with-order-history.md|ac-4.4 does not state whether the payment processing page updates automatically) - to be computed by orchestrator",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+    "severity": "Low",
+    "category": "requirements/testability",
+    "title": "AC-4.4 does not state whether the payment processing page updates automatically",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "146, 323"
+    },
+    "evidence": "AC-4.4 (L146) requires the final state to be shown 'within 30 seconds of our server receiving the result', or within 90 seconds on the lost-callback path. It also says the page keeps showing 'payment processing' 'with a refresh action'. It does not say whether the page checks for updates automatically, or how often. If the page only updates on a manual refresh, the time targets depend on the user and cannot be tested. The 90-second figure also assumes one reconciliation pass finishes promptly, even though each provider call can take up to 10 seconds (REQ-24).",
+    "requirement_refs": ["AC-4.4", "REQ-24", "NFR-20", "OQ-44"],
+    "rationale": "Without a defined update mechanism the E2E timing test is either flaky or quietly weakened later (guide 9.3: assertions that cannot fail).",
+    "recommended_fix": "State that the page checks status automatically at a fixed interval (for example every 5 s, within the 60-per-minute limit at L323), and that the refresh action is an extra option. Bound one reconciliation pass (for example all pending orders processed within 60 s including timeouts), or allow for it in the 90 s figure.",
+    "verification": "AC-4.4 names the update mechanism and interval. The 90 s figure holds with a provider stub that responds after 10 s.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-035",
+    "fingerprint": "sha1(requirements/traceability|docs/requirements/customer-checkout-with-order-history.md|section 12 us column and us headings disagree for req-11 and req-25) - to be computed by orchestrator",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
+    "severity": "Low",
+    "category": "requirements/traceability",
+    "title": "Section 12 US column and US headings disagree for REQ-11 and REQ-25",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "118, 139, 482, 496"
+    },
+    "evidence": "The REQ-11 row (L482) lists only US-7, but its ACs come from US-3 (3.7, 3.12), US-4 (4.7, 4.8, 4.11), US-6 (6.2), US-12 (12.7) and US-13 (13.3, 13.5, 13.12). The REQ-25 row (L496) lists US-7, US-3 and US-4 but includes AC-13.12 (US-13). The US-3 (L118) and US-4 (L139) headings cite neither REQ-11 nor REQ-25. The AC column itself is complete: a manual cross-check found every AC under at least one REQ.",
+    "requirement_refs": ["REQ-11", "REQ-25", "US-3", "US-4", "US-13"],
+    "rationale": "Regression selection by user story (the CLAUDE.md module map maps to e2e journeys) would miss audit and alert tests in the checkout and sign-in journeys.",
+    "recommended_fix": "Add US-3, US-4, US-6, US-12 and US-13 to the REQ-11 row, and US-13 to the REQ-25 row. Add REQ-11 and REQ-25 to the US-3 and US-4 headings, and REQ-11 to the US-13 heading.",
+    "verification": "For every REQ row, the US column equals the set of stories its ACs come from, and each US heading cites every REQ whose row includes one of its ACs.",
+    "blocking": false,
+    "status": "open"
+  }
+]

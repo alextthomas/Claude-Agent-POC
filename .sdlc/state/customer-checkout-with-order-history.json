@@ -2,7 +2,7 @@
   "feature": "customer-checkout-with-order-history",
   "tier": null,
   "phase": "P3",
-  "status": "in-progress:P3",
+  "status": "in-progress:HG-C-1",
   "blockers": [],
   "branch": "docs/ux-customer-checkout-with-order-history",
   "artifacts": {
@@ -25,6 +25,10 @@
     "prd": {
       "path": "docs/requirements/customer-checkout-with-order-history.md",
       "sha": "67293cc"
+    },
+    "ux_spec": {
+      "path": "docs/ux/customer-checkout-with-order-history.md",
+      "sha": "c441580"
     }
   },
   "gates": {
@@ -44,10 +48,12 @@
       "decided_by": "alextthomas",
       "decided_at": "2026-10-20T20:11:02Z",
       "decision": "Approve",
-      "checkboxes": "18/18 ticked"
+      "checkboxes": "18/18 ticked",
+      "stale_sections": "US-13, NFR-14, NFR-20, AC-13.4, AC-4.4 (HG-C-1)"
     },
     "HG-2": {
-      "status": "pending"
+      "status": "pending",
+      "blocked_by": "HG-C-1"
     },
     "HG-3": {
       "status": "pending"
@@ -60,6 +66,13 @@
     },
     "HG-6": {
       "status": "pending"
+    },
+    "HG-C-1": {
+      "status": "accepted",
+      "record": "Issue #3 comment",
+      "decided_by": "alextthomas",
+      "decided_at": "2026-10-20T20:32:45Z",
+      "next": "PRD amendment on docs/prd-hgc1-session-keepalive -> HG-1 re-approval of changed sections"
     }
   },
   "identities": {
@@ -68,8 +81,8 @@
   },
   "review_rounds": 4,
   "open_blocking_findings": 0,
-  "head_sha": "9927ee5",
-  "updated_at": "2026-10-20T20:12:59.488Z",
+  "head_sha": "c441580",
+  "updated_at": "2026-10-20T20:33:42.910Z",
   "review_verdict": {
     "round": 4,
     "sha": "67293cc",

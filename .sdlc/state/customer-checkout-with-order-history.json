@@ -1,10 +1,10 @@
 {
   "feature": "customer-checkout-with-order-history",
   "tier": null,
-  "phase": "P2",
-  "status": "awaiting:HG-1",
+  "phase": "P3",
+  "status": "awaiting:HG-1 (HG-C-1 re-approval)",
   "blockers": [],
-  "branch": "docs/prd-customer-checkout-with-order-history",
+  "branch": "docs/prd-hgc1-session-keepalive",
   "artifacts": {
     "charter": {
       "path": "docs/project-charter.md",
@@ -24,7 +24,11 @@
     },
     "prd": {
       "path": "docs/requirements/customer-checkout-with-order-history.md",
-      "sha": "67293cc"
+      "sha": "4b3b9dd"
+    },
+    "ux_spec": {
+      "path": "docs/ux/customer-checkout-with-order-history.md",
+      "sha": "c441580"
     }
   },
   "gates": {
@@ -37,12 +41,19 @@
       "decided_at": "2026-10-20T18:38:32Z"
     },
     "HG-1": {
-      "status": "awaiting",
-      "record": null,
-      "approver": "alextthomas"
+      "status": "stale-sections-awaiting-reapproval",
+      "sha": "141afb0",
+      "merge_sha": "9927ee5",
+      "record": "PR #2",
+      "decided_by": "alextthomas",
+      "decided_at": "2026-10-20T20:11:02Z",
+      "decision": "Approve",
+      "checkboxes": "18/18 ticked",
+      "stale_sections": "US-13, NFR-14, NFR-20, AC-13.4, AC-4.4 (HG-C-1)"
     },
     "HG-2": {
-      "status": "pending"
+      "status": "pending",
+      "blocked_by": "HG-C-1"
     },
     "HG-3": {
       "status": "pending"
@@ -55,6 +66,13 @@
     },
     "HG-6": {
       "status": "pending"
+    },
+    "HG-C-1": {
+      "status": "accepted",
+      "record": "Issue #3 comment",
+      "decided_by": "alextthomas",
+      "decided_at": "2026-10-20T20:32:45Z",
+      "next": "PRD amendment on docs/prd-hgc1-session-keepalive -> HG-1 re-approval of changed sections"
     }
   },
   "identities": {
@@ -63,11 +81,17 @@
   },
   "review_rounds": 4,
   "open_blocking_findings": 0,
-  "head_sha": "67293cc",
-  "updated_at": "2026-10-20T20:06:53.330Z",
+  "head_sha": "1f6ff05",
+  "updated_at": "2026-10-20T23:11:44.043Z",
   "review_verdict": {
     "round": 4,
     "sha": "67293cc",
     "verdict": "PASS WITH NON-BLOCKING FINDINGS"
-  }
+  },
+  "carry_forward": [
+    "CR-checkout-036 (Medium) open — route to solution-architect in P4",
+    "CR-checkout-037 (Medium) open — route to solution-architect in P4",
+    "CR-checkout-038/039 (Low), 040 (Info) architect notes"
+  ],
+  "hgc1_review_rounds": 2
 }

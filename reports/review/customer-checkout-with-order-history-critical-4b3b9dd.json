@@ -1,0 +1,82 @@
+[
+  {
+    "id": "CR-checkout-049",
+    "fingerprint": "sha1(requirements/ambiguity|docs/requirements/customer-checkout-with-order-history.md|warning timing from server expiry times does not address client clock skew)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "4b3b9ddc11aa648fbeb0c215feaf926cfb084702",
+    "severity": "Medium",
+    "category": "requirements/ambiguity",
+    "title": "Warning timing from server expiry times does not address client clock skew",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "290, 315, 358"
+    },
+    "evidence": "Preamble L290: 'the server ... exposes both to the UI (for example as response metadata ...; the form is decided in Phase 4); the UI derives the warning times ... from these server-provided times'. AC-13.24 (L315): 'when the server's idle expiry is 5 minutes from now, the warning of AC-13.15 is shown 3 minutes from now (test tolerance plus or minus 5 seconds)'. NFR-14 (L358) says the same. Nothing requires the UI to correct for the browser clock differing from the server clock. If the server sends absolute timestamps and the UI compares them with the browser clock, a browser clock that runs 3 minutes slow shows the warning after the session has already expired. A test environment where client and server share one clock would not catch this.",
+    "requirement_refs": ["AC-13.24", "AC-13.15", "AC-13.23", "NFR-14", "NFR-9"],
+    "rationale": "This brings back, for some users, the outcome the change was meant to remove: being signed out without warning, which fails WCAG 2.2.1. The AC can be met by a skew-safe design (relative seconds remaining, or an offset worked out from the server Date). The PRD does not require that, and a naive design passes CI. The impact is limited, so Medium.",
+    "recommended_fix": "Add one sentence to the preamble and AC-13.24: the warning times hold whatever the client clock offset is (for example the server exposes the time remaining, or the UI corrects for the offset). Add an example with the browser clock 3 minutes slow.",
+    "verification": "The PRD states the skew requirement. AC-13.24 has a skewed-clock example in which the warning still shows 2 minutes before expiry (plus or minus 5 seconds).",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-050",
+    "fingerprint": "sha1(requirements/ambiguity|docs/requirements/customer-checkout-with-order-history.md|effect of user activity on a displayed absolute-limit warning is unspecified)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "4b3b9ddc11aa648fbeb0c215feaf926cfb084702",
+    "severity": "Low",
+    "category": "requirements/ambiguity",
+    "title": "Effect of user activity on a displayed absolute-limit warning is unspecified",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "290, 314, 320, 358"
+    },
+    "evidence": "Preamble L290 says, without scoping it to one warning: 'other user activity while the warning is shown dismisses it (AC-13.29)'. NFR-14 L358 says the same: 'other successful user activity dismisses the warning'. AC-13.29 (L320) covers only 'the warning of AC-13.15' and says it 'is shown again only after a further 28 minutes'. AC-13.23 (L314) calls the absolute-limit warning 'the same non-modal warning' but does not say what user activity does to it. Read literally, the preamble lets a customer who is active at 7 h 58 min 30 s dismiss the absolute-limit warning and then be signed out at 8 h with no warning on screen. The min(W, L - 2) rule would show it again at once. The PRD does not say which rule wins. A second, smaller point in AC-13.23: 'shown at once when last activity was at 7 hours 59 minutes or later'. The real threshold is 7 h 58 min, the point where L - 2 minutes is no longer in the future.",
+    "requirement_refs": ["AC-13.23", "AC-13.29", "OQ-49", "NFR-14"],
+    "rationale": "Two plausible readings exist for the band OQ-49 was written to cover. The impact is small because the customer has no action to take, so Low.",
+    "recommended_fix": "Scope the dismissal sentence in the preamble and NFR-14 to the idle warning (AC-13.15). Add to AC-13.23 that the absolute-limit warning stays visible until sign-out, whatever user activity happens. Correct '7 hours 59 minutes' to '7 hours 58 minutes'.",
+    "verification": "AC-13.23 states that user activity does not dismiss the absolute-limit warning. The dismissal statements in the preamble and NFR-14 refer only to AC-13.15. The boundary example reads 7 h 58 min.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-051",
+    "fingerprint": "sha1(documentation/consistency|docs/requirements/customer-checkout-with-order-history.md|user activity definition still states every user-initiated request resets the idle timer)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "4b3b9ddc11aa648fbeb0c215feaf926cfb084702",
+    "severity": "Low",
+    "category": "documentation/consistency",
+    "title": "User activity definition still states every user-initiated request resets the idle timer",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "290, 318, 358"
+    },
+    "evidence": "Preamble L290 (revision 9 text, kept unchanged): 'User activity is an authenticated request that is initiated by a user action: page navigation, ... a form submission ... Each such request resets the 30-minute idle timer'. Later sentences added in revision 10 in the same paragraph, and AC-13.27 (L318) with OQ-51, say that rejected requests (4xx, 5xx) and single-page navigations that send no request do not reset it. So a form submission rejected with 400 or 422 is 'user activity' that does not reset the timer. NFR-14 L358 also says the idle timeout 'is reset only by user activity and can be extended only by the keep-alive action', but under AC-13.14 a reset is itself an extension.",
+    "requirement_refs": ["AC-13.27", "OQ-51", "NFR-14", "AC-13.14"],
+    "rationale": "The rule itself is the Product Owner's decision (OQ-51, section 11.3) and is not challenged here. The defect is wording: the opening definition contradicts the rule that follows, and a reader of only the first sentence implements it wrongly.",
+    "recommended_fix": "Change 'Each such request resets' to 'Each such request that succeeds (HTTP 2xx or 3xx) resets (AC-13.27)'. Change 'page navigation' to 'a page navigation that sends an authenticated request'. In NFR-14, change 'can be extended only by the keep-alive action' to 'is extended only by user activity, including the keep-alive action'.",
+    "verification": "The preamble definition and the NFR-14 requirement text match AC-13.27 and OQ-51 with no exceptions left unstated.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-052",
+    "fingerprint": "sha1(requirements/completeness|docs/requirements/customer-checkout-with-order-history.md|keep-alive retry after 403 or 429 can never succeed as specified)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "4b3b9ddc11aa648fbeb0c215feaf926cfb084702",
+    "severity": "Low",
+    "category": "requirements/completeness",
+    "title": "Keep-alive retry after 403 or 429 can never succeed as specified",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "290, 313, 319"
+    },
+    "evidence": "AC-13.28 (L319) offers the same retry action for 403, 429, 5xx and network errors. For 403 (missing, malformed or other-session CSRF token, AC-13.20), retrying with the same token fails each time unless the UI gets a fresh token first, and the PRD does not require that. For 429 (AC-13.22, L313), the PRD does not say the retry respects Retry-After, so retries made too early are rejected again until the window ends. In both cases the customer can keep pressing retry until the session expires.",
+    "requirement_refs": ["AC-13.28", "AC-13.20", "AC-13.22", "NFR-14"],
+    "rationale": "This is an error-path gap in a newly added AC. It is rare, because a valid session normally has a valid token and 10 requests a minute is far above what a person clicks. Low.",
+    "recommended_fix": "Add to AC-13.28: after a 403 the retry first fetches a fresh anti-CSRF token for the session; after a 429 the retry is disabled until Retry-After has passed.",
+    "verification": "AC-13.28 states the 403 and 429 retry behaviour, with a test example for each.",
+    "blocking": false,
+    "status": "open"
+  }
+]

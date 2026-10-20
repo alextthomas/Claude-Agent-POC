@@ -609,9 +609,16 @@
           "severity": "Info",
           "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
           "source": "reports/review/customer-checkout-with-order-history-critical-7d4107c.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-020",
+          "severity": "Info",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
         }
       ],
-      "cycles": 2,
+      "cycles": 3,
       "reverification": [
         {
           "sha": "de317a9aea242db2d6157b6791133ed90793be90",
@@ -624,6 +631,12 @@
           "reviewer": "critical-reviewer",
           "result": "Partially resolved",
           "source": "docs/reviews/customer-checkout-with-order-history-critical-7d4107c.md"
+        },
+        {
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "reviewer": "critical-reviewer",
+          "result": "Partially resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-67293cc.md"
         }
       ]
     },
@@ -651,15 +664,28 @@
           "severity": "High",
           "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
           "source": "reports/review/customer-checkout-with-order-history-critical-7d4107c.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-021",
+          "severity": "High",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
         }
       ],
-      "cycles": 1,
+      "cycles": 2,
       "reverification": [
         {
           "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
           "reviewer": "critical-reviewer",
           "result": "Partially resolved",
           "source": "docs/reviews/customer-checkout-with-order-history-critical-7d4107c.md"
+        },
+        {
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved (PRD level)",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-67293cc.md"
         }
       ]
     },
@@ -913,9 +939,24 @@
           "severity": "Info",
           "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
           "source": "reports/review/customer-checkout-with-order-history-critical-7d4107c.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-030",
+          "severity": "Info",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
         }
       ],
-      "cycles": 0
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "reviewer": "critical-reviewer",
+          "result": "Partially resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-67293cc.md"
+        }
+      ]
     },
     {
       "fingerprint": "a52fcdff2ae4f3223bfa1e26115bbff29d3fc589",
@@ -935,9 +976,24 @@
           "severity": "Low",
           "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
           "source": "reports/review/customer-checkout-with-order-history-critical-7d4107c.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-031",
+          "severity": "Low",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
         }
       ],
-      "cycles": 0
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "reviewer": "critical-reviewer",
+          "result": "Partially resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-67293cc.md"
+        }
+      ]
     },
     {
       "fingerprint": "200dfb0aa93c96ca88e1b5b540bdf8346514bdee",
@@ -957,9 +1013,24 @@
           "severity": "Low",
           "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
           "source": "reports/review/customer-checkout-with-order-history-critical-7d4107c.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-032",
+          "severity": "Low",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
         }
       ],
-      "cycles": 0
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-67293cc.md"
+        }
+      ]
     },
     {
       "fingerprint": "6fc9b2c093e7dbbc01e44b83b6704fe019c867df",
@@ -979,9 +1050,24 @@
           "severity": "Low",
           "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
           "source": "reports/review/customer-checkout-with-order-history-critical-7d4107c.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-033",
+          "severity": "Low",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
         }
       ],
-      "cycles": 0
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "reviewer": "critical-reviewer",
+          "result": "Partially resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-67293cc.md"
+        }
+      ]
     },
     {
       "fingerprint": "4c56326b624838d63610005b17579ed0642655aa",
@@ -1001,9 +1087,24 @@
           "severity": "Low",
           "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
           "source": "reports/review/customer-checkout-with-order-history-critical-7d4107c.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-034",
+          "severity": "Low",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
         }
       ],
-      "cycles": 0
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-67293cc.md"
+        }
+      ]
     },
     {
       "fingerprint": "cfde1ce1c8861358b7c8f5267e253ce121a870ec",
@@ -1023,10 +1124,135 @@
           "severity": "Low",
           "sha": "7d4107c5ce08bc92bd0be6fa9664f605e6220265",
           "source": "reports/review/customer-checkout-with-order-history-critical-7d4107c.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-035",
+          "severity": "Low",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        }
+      ],
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-67293cc.md"
+        }
+      ]
+    },
+    {
+      "fingerprint": "56c1dea6aee1ef5e7658008439a42564794e571a",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-036"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "Early close of a pending order with an open provider session does not require cancelling the session and duplicate review covers only expired orders",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-036",
+          "severity": "Medium",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        }
+      ],
+      "cycles": 0
+    },
+    {
+      "fingerprint": "a928fd2f9c895f1e0d78d32ef02ad7e818da230f",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-037"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "REQ-23 and AC-3.15 require a new order for a never-confirmed session, contradicting the same-order retry of AC-3.13 and AC-4.10",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-037",
+          "severity": "Medium",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        }
+      ],
+      "cycles": 0
+    },
+    {
+      "fingerprint": "eedb7fcace29658e958b38a90c292ea74c22cc5c",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-038"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "Per-email sign-in slot has no release rule for crashed instances or abandoned requests",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-038",
+          "severity": "Low",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        }
+      ],
+      "cycles": 0
+    },
+    {
+      "fingerprint": "121389737a96c3ffa751c49ae84a6025930fae3c",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-039"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "Automatic payment status checks may extend the 30-minute idle session timeout",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-039",
+          "severity": "Low",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        }
+      ],
+      "cycles": 0
+    },
+    {
+      "fingerprint": "14727fbe6767cf15e739b7d358b08159d2282428",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-040"
+      ],
+      "severity": "Info",
+      "blocking": false,
+      "status": "open",
+      "title": "Reconciliation pass bound of 60 seconds is unachievable sequentially during a provider outage and may trigger job-missed alerts",
+      "phase": "P2",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-040",
+          "severity": "Info",
+          "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
+          "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
         }
       ],
       "cycles": 0
     }
   ],
-  "updated_at": "2026-10-20T19:53:05.851Z"
+  "updated_at": "2026-10-20T20:06:53.330Z"
 }

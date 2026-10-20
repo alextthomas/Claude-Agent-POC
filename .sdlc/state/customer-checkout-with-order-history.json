@@ -2,7 +2,7 @@
   "feature": "customer-checkout-with-order-history",
   "tier": null,
   "phase": "P2",
-  "status": "awaiting:PO-decision:CR-checkout-021",
+  "status": "awaiting:HG-1",
   "blockers": [],
   "branch": "docs/prd-customer-checkout-with-order-history",
   "artifacts": {
@@ -24,7 +24,7 @@
     },
     "prd": {
       "path": "docs/requirements/customer-checkout-with-order-history.md",
-      "sha": "7d4107c"
+      "sha": "67293cc"
     }
   },
   "gates": {
@@ -37,7 +37,9 @@
       "decided_at": "2026-10-20T18:38:32Z"
     },
     "HG-1": {
-      "status": "pending"
+      "status": "awaiting",
+      "record": null,
+      "approver": "alextthomas"
     },
     "HG-2": {
       "status": "pending"
@@ -59,8 +61,13 @@
     "human_approver": "alextthomas",
     "agent": "alextthomasagent"
   },
-  "review_rounds": 3,
-  "open_blocking_findings": 1,
-  "head_sha": "7d4107c",
-  "updated_at": "2026-10-20T19:53:05.851Z"
+  "review_rounds": 4,
+  "open_blocking_findings": 0,
+  "head_sha": "67293cc",
+  "updated_at": "2026-10-20T20:06:53.330Z",
+  "review_verdict": {
+    "round": 4,
+    "sha": "67293cc",
+    "verdict": "PASS WITH NON-BLOCKING FINDINGS"
+  }
 }

@@ -1,6 +1,6 @@
 # Project Charter — Shop Platform (Agentic SDLC POC)
 
-Status: Draft for HG-0 | Owner: @alextthomas (Engineering Lead) | Date: 2026-10-20
+Status: Submitted for HG-0 | Owner: @alextthomas (Engineering Lead) | Date: 2026-10-20
 
 Items marked **[Confirm at HG-0]** are assumptions made by the orchestrator. Approving
 the HG-0 PR confirms them; change them in the PR if they are wrong.

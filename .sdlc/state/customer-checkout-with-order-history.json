@@ -24,7 +24,7 @@
     },
     "prd": {
       "path": "docs/requirements/customer-checkout-with-order-history.md",
-      "sha": "1f69a3b"
+      "sha": "de317a9"
     }
   },
   "gates": {
@@ -59,8 +59,8 @@
     "human_approver": "alextthomas",
     "agent": "alextthomasagent"
   },
-  "review_rounds": 1,
-  "open_blocking_findings": 3,
-  "head_sha": "1f69a3b",
-  "updated_at": "2026-10-20T19:04:36.765Z"
+  "review_rounds": 2,
+  "open_blocking_findings": 1,
+  "head_sha": "de317a9",
+  "updated_at": "2026-10-20T19:23:38.990Z"
 }

@@ -1,10 +1,10 @@
 {
   "feature": "customer-checkout-with-order-history",
   "tier": null,
-  "phase": "P2",
-  "status": "awaiting:HG-1",
+  "phase": "P3",
+  "status": "in-progress:P3",
   "blockers": [],
-  "branch": "docs/prd-customer-checkout-with-order-history",
+  "branch": "docs/ux-customer-checkout-with-order-history",
   "artifacts": {
     "charter": {
       "path": "docs/project-charter.md",
@@ -37,9 +37,14 @@
       "decided_at": "2026-10-20T18:38:32Z"
     },
     "HG-1": {
-      "status": "awaiting",
-      "record": null,
-      "approver": "alextthomas"
+      "status": "approved",
+      "sha": "141afb0",
+      "merge_sha": "9927ee5",
+      "record": "PR #2",
+      "decided_by": "alextthomas",
+      "decided_at": "2026-10-20T20:11:02Z",
+      "decision": "Approve",
+      "checkboxes": "18/18 ticked"
     },
     "HG-2": {
       "status": "pending"
@@ -63,11 +68,16 @@
   },
   "review_rounds": 4,
   "open_blocking_findings": 0,
-  "head_sha": "67293cc",
-  "updated_at": "2026-10-20T20:06:53.330Z",
+  "head_sha": "9927ee5",
+  "updated_at": "2026-10-20T20:12:59.488Z",
   "review_verdict": {
     "round": 4,
     "sha": "67293cc",
     "verdict": "PASS WITH NON-BLOCKING FINDINGS"
-  }
+  },
+  "carry_forward": [
+    "CR-checkout-036 (Medium) open — route to solution-architect in P4",
+    "CR-checkout-037 (Medium) open — route to solution-architect in P4",
+    "CR-checkout-038/039 (Low), 040 (Info) architect notes"
+  ]
 }

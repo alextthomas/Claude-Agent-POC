@@ -1227,9 +1227,24 @@
           "severity": "Low",
           "sha": "67293ccc76f0589f80360a48567a5210ad0f81f6",
           "source": "reports/review/customer-checkout-with-order-history-critical-67293cc.json"
+        },
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-039",
+          "severity": "Low",
+          "sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f6ff05.json"
         }
       ],
-      "cycles": 0
+      "cycles": 1,
+      "reverification": [
+        {
+          "sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+          "reviewer": "critical-reviewer",
+          "result": "Resolved (requirement level); reviewer-reported status fix-proposed",
+          "source": "docs/reviews/customer-checkout-with-order-history-critical-1f6ff05.md"
+        }
+      ]
     },
     {
       "fingerprint": "14727fbe6767cf15e739b7d358b08159d2282428",
@@ -1252,7 +1267,183 @@
         }
       ],
       "cycles": 0
+    },
+    {
+      "fingerprint": "1b92e54d722b31fda56c27cbdf30869963c3d41a",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-041"
+      ],
+      "severity": "High",
+      "blocking": true,
+      "status": "open",
+      "title": "NFR-14 log/URL scan verification method removed without declaration",
+      "phase": "HG-C-1",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-041",
+          "severity": "High",
+          "sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f6ff05.json"
+        }
+      ],
+      "cycles": 0
+    },
+    {
+      "fingerprint": "f169f6216a7d851bcb8b6bca57eae20ac79f3bf7",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-042"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "Warning timing source and multi-tab behaviour of the session-expiry warning are undefined",
+      "phase": "HG-C-1",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-042",
+          "severity": "Medium",
+          "sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f6ff05.json"
+        }
+      ],
+      "cycles": 0
+    },
+    {
+      "fingerprint": "b0cfc6920d71b45c79e5a31dfe367bfe2da91108",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-043"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "User activity classification on shared endpoints and for rejected requests is unspecified",
+      "phase": "HG-C-1",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-043",
+          "severity": "Medium",
+          "sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f6ff05.json"
+        }
+      ],
+      "cycles": 0
+    },
+    {
+      "fingerprint": "f2850e44760dec9ec6f53096b843fabdebf21c8f",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-044"
+      ],
+      "severity": "Medium",
+      "blocking": false,
+      "status": "open",
+      "title": "Keep-alive failure handling and warning dismissal by other user activity are unspecified",
+      "phase": "HG-C-1",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-044",
+          "severity": "Medium",
+          "sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f6ff05.json"
+        }
+      ],
+      "cycles": 0
+    },
+    {
+      "fingerprint": "a3051c21aa840230341132e34299904c8af52b01",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-045"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "Absolute-limit warning can give less than 2 minutes notice in the within-2-minutes band",
+      "phase": "HG-C-1",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-045",
+          "severity": "Low",
+          "sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f6ff05.json"
+        }
+      ],
+      "cycles": 0
+    },
+    {
+      "fingerprint": "dd9815367a16008f65d98edf49807704b6109f89",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-046"
+      ],
+      "severity": "Low",
+      "blocking": false,
+      "status": "open",
+      "title": "Revision 9 changelog misdescribes AC-13.15 and NFR-20 table changes",
+      "phase": "HG-C-1",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-046",
+          "severity": "Low",
+          "sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f6ff05.json"
+        }
+      ],
+      "cycles": 0
+    },
+    {
+      "fingerprint": "128480500f4ae6111ae117be91ab7b0b9b0d5c33",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-047"
+      ],
+      "severity": "Info",
+      "blocking": false,
+      "status": "open",
+      "title": "8-hour absolute limit has no recorded WCAG 2.2.1 exception basis",
+      "phase": "HG-C-1",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-047",
+          "severity": "Info",
+          "sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f6ff05.json"
+        }
+      ],
+      "cycles": 0
+    },
+    {
+      "fingerprint": "38d4c9a098cbd2f24ac480ebed0195d15a2e66bd",
+      "fingerprint_note": "computed by orchestrator: sha1 of reviewer-supplied input string",
+      "ids": [
+        "CR-checkout-048"
+      ],
+      "severity": "Info",
+      "blocking": false,
+      "status": "open",
+      "title": "UX spec S-01 contradicts PRD OQ-49 absolute-limit warning",
+      "phase": "HG-C-1",
+      "attribution": [
+        {
+          "reviewer": "critical-reviewer",
+          "id": "CR-checkout-048",
+          "severity": "Info",
+          "sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+          "source": "reports/review/customer-checkout-with-order-history-critical-1f6ff05.json"
+        }
+      ],
+      "cycles": 0
     }
   ],
-  "updated_at": "2026-10-20T20:06:53.330Z"
+  "updated_at": "2026-10-20T20:51:18.634Z"
 }

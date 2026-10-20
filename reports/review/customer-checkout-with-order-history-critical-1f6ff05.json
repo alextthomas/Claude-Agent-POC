@@ -1,0 +1,189 @@
+[
+  {
+    "id": "CR-checkout-039",
+    "fingerprint": "sha1(security/session|docs/requirements/customer-checkout-with-order-history.md|automatic payment status checks may extend the 30-minute idle session timeout)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+    "severity": "Low",
+    "category": "security/session",
+    "title": "Automatic payment status checks may extend the 30-minute idle session timeout",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "169, 280, 299, 300, 342"
+    },
+    "evidence": "Re-verification result: RESOLVED (requirement level). Criterion part 1: AC-4.4 states whether polling counts as activity and when it stops. Met: AC-4.4 (L169) now ends 'The automatic checks do not reset the session idle timer and stop at a final state or on HTTP 401 (AC-13.18, AC-13.19).' The US-13 preamble (L280) and the NFR-14 target (L342, '0 resets from automatic checks in the idle-tab test') say the same. Criterion part 2: an idle-tab test on 'payment processing' for 30 minutes shows the session expires. Met as a testable AC: AC-13.18 (L299) has a pending order, no user action and 5-second checks for 30 minutes, with the warning at 28 minutes and HTTP 401 on the first check after 30 idle minutes. AC-13.19 (L300) requires 0 further automatic requests after a final state or a 401. No test exists yet; this is a PRD-only change.",
+    "requirement_refs": [
+      "NFR-14",
+      "AC-4.4",
+      "AC-4.9",
+      "AC-13.4",
+      "AC-13.18",
+      "AC-13.19"
+    ],
+    "rationale": "Both parts of the verification criterion are now in the PRD as testable requirements. The executable proof (the AC-13.18 test) does not exist until implementation, so this cannot be marked verified-fixed.",
+    "recommended_fix": "None for the PRD. Carry AC-13.18 and AC-13.19 into the Phase 6 integration and E2E test plan.",
+    "verification": "At implementation: the AC-13.18 test passes (401 on the first automatic check after 30 idle minutes), and the AC-13.19 test shows 0 status requests after a final state or a 401.",
+    "blocking": false,
+    "status": "fix-proposed"
+  },
+  {
+    "id": "CR-checkout-041",
+    "fingerprint": "sha1(requirements/traceability|docs/requirements/customer-checkout-with-order-history.md|nfr-14 log/url scan verification method removed without declaration)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+    "severity": "High",
+    "category": "requirements/traceability",
+    "title": "NFR-14 log/URL scan verification method removed without declaration",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "342 (base 9927ee5 L321), 19"
+    },
+    "evidence": "Base (approved rev 8) NFR-14 Verification column: 'Integration tests (AC-12.8, 13.8, 14.1); CSRF negative tests; log/URL scan'. Head L342: 'Integration tests (AC-12.8, 13.8, 14.1); CSRF negative tests (AC-13.20); idle, warning, keep-alive, absolute-cap and polling tests (AC-13.14 to 13.19, 13.21, 13.22, 13.23)'. The 'log/URL scan' method is gone. The NFR-14 target still requires 'not placed in URLs (0 occurrences in URLs and logs)'. AC-7.2 (L206) covers session credentials in logs only; nothing now verifies the 'not in URLs' half. The rev 9 changelog (L19) lists 'NFR-14 (... verification ...)' as changed but does not say a method was removed. This is outside HG-C-1 scope (session activity and keep-alive).",
+    "requirement_refs": ["NFR-14", "AC-7.2", "HG-C-1"],
+    "rationale": "This is an undeclared substantive change to an approved artifact, and it weakens verification of a security target (session credentials in URLs). Section 9.4 rates an undeclared deviation from the approved design, and a loosened verification, as High. CLAUDE.md: 'Never weaken a test or assertion'.",
+    "recommended_fix": "Restore '; log/URL scan' to the NFR-14 Verification column next to the new AC references.",
+    "verification": "The normalised diff of the NFR-14 Verification cell between 9927ee5 and the fix SHA only adds text; 'log/URL scan' is present.",
+    "blocking": true,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-042",
+    "fingerprint": "sha1(requirements/ambiguity|docs/requirements/customer-checkout-with-order-history.md|warning timing source and multi-tab behaviour of the session-expiry warning are undefined)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+    "severity": "Medium",
+    "category": "requirements/ambiguity",
+    "title": "Warning timing source and multi-tab behaviour of the session-expiry warning are undefined",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "280, 296, 297, 304"
+    },
+    "evidence": "AC-13.15 (L296) shows the warning after '28 minutes' without user activity. AC-13.23 (L304) shows '<local time>' of the 8-hour limit. The idle timer and the session creation time are held by the server (NFR-14). No requirement says how the UI learns the server's idle or absolute expiry, for example from an expiry value returned on authenticated responses. Nothing covers several tabs on one session (multiple tabs are a known scenario, REQ-5, AC-3.8). Activity in tab B resets the server idle timer, but tab A's local timer still shows 'will expire in 2 minutes'. 'Stay signed in' in tab A leaves the warning open in tab B. A tab counting only its own activity may also fail to warn when the server timer is older than the tab's view.",
+    "requirement_refs": ["NFR-14", "AC-13.15", "AC-13.16", "AC-13.23", "REQ-5"],
+    "rationale": "The ACs are only testable in a single tab. A spurious or missing warning can sign out a customer who believes they are still signed in. This is the WCAG 2.2.1 outcome the change was meant to fix. Limited impact, so Medium.",
+    "recommended_fix": "State that the warning time is derived from the server's idle and absolute expiry (exposed to the UI, for example as response metadata), and that the warning state is consistent across tabs of one session: activity or 'Stay signed in' in one tab dismisses or reschedules the warning in the others. Add an AC with two tabs.",
+    "verification": "PRD has a requirement for the source of the expiry times and a two-tab AC (activity in tab B at 27 minutes means no warning in tab A at 28 minutes).",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-043",
+    "fingerprint": "sha1(requirements/ambiguity|docs/requirements/customer-checkout-with-order-history.md|user activity classification on shared endpoints and for rejected requests is unspecified)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+    "severity": "Medium",
+    "category": "requirements/ambiguity",
+    "title": "User activity classification on shared endpoints and for rejected requests is unspecified",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "280, 342, 360"
+    },
+    "evidence": "The preamble (L280) defines activity by intent ('initiated by a user action'). The manual refresh (activity) and the 5-second automatic check (not activity) call the same 'Confirmation / payment status' endpoint class (L360). The server keeps the idle timer, so it must tell the two apart, which is only possible from a client-supplied signal. The PRD does not say this or that the signal is client-asserted. It also does not say whether a user-initiated request that is rejected (403 CSRF, 429, 4xx validation) resets the idle timer; only the keep-alive cases say so (AC-13.20, 13.22). An SPA 'page navigation' that sends no authenticated request does not reset the timer under the definition.",
+    "requirement_refs": ["NFR-14", "AC-4.4", "AC-13.14", "AC-13.18"],
+    "rationale": "The implementation can meet AC-13.18 in more than one incompatible way (separate endpoint, header flag, client-side only). The rejected-request rule is open to interpretation. Risk is low because the session is the user's own and the 8-hour cap holds. This is a requirement gap, not yet a design flaw.",
+    "recommended_fix": "Add a sentence: automatic requests are marked by the client (mechanism decided in Phase 4) and the server resets the idle timer only for unmarked authenticated requests that succeed (2xx or 3xx). Or state the rule for rejected requests explicitly.",
+    "verification": "PRD states the rule for rejected requests; Phase 4 ADR names the marking mechanism; an integration test shows that a marked status request leaves the idle expiry unchanged.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-044",
+    "fingerprint": "sha1(requirements/completeness|docs/requirements/customer-checkout-with-order-history.md|keep-alive failure handling and warning dismissal by other user activity are unspecified)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+    "severity": "Medium",
+    "category": "requirements/completeness",
+    "title": "Keep-alive failure handling and warning dismissal by other user activity are unspecified",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "297, 301, 303"
+    },
+    "evidence": "AC-13.16 (L297) covers only a successful 'Stay signed in'. AC-13.20 (403) and AC-13.22 (429) give the server responses but not what the UI shows. Network errors and 5xx are not covered. The UX spec (c441580 S-01) covers only a 401 from the keep-alive. Nothing says the warning is dismissed when the customer performs other user activity (for example navigates) while it is shown, which also resets the idle timer.",
+    "requirement_refs": ["AC-13.16", "AC-13.20", "AC-13.22", "NFR-14"],
+    "rationale": "On a failed keep-alive the customer may assume the session was extended and lose work 2 minutes later. A warning that stays after the session was extended by navigation is misleading. This is an error-path gap.",
+    "recommended_fix": "Add an AC: if the keep-alive returns anything other than success, the warning stays (or an error message with a retry is shown, as in the common error banner pattern) and the idle expiry is unchanged. Add an AC: other user activity while the warning is shown dismisses it.",
+    "verification": "The PRD has the two ACs. The UX spec S-01 states the matching UI for 403, 429 and 5xx.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-045",
+    "fingerprint": "sha1(accessibility/wcag|docs/requirements/customer-checkout-with-order-history.md|absolute-limit warning can give less than 2 minutes notice in the within-2-minutes band)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+    "severity": "Low",
+    "category": "accessibility/wcag",
+    "title": "Absolute-limit warning can give less than 2 minutes notice in the within-2-minutes band",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "304, 507"
+    },
+    "evidence": "AC-13.23 (L304): 'The warning is shown when the idle warning would be shown, or, if the 8-hour limit is earlier than that point, 2 minutes before the 8-hour limit'. Take the AC's own example (last activity at 7 h 31 min). The warning point W is 7 h 59 min, the limit L is 8 h 00 min, and the warning shows at W, 1 minute before sign-out. When L is between W and W+2, notice is L-W minutes (as little as a few seconds). Showing at L-2 minutes would always give 2 minutes. The UX spec (c441580 S-01 accessibility) requires the warning to give 'at least 2 minutes to respond'. Section 11.3 (L507) declares that this timing was not stated by OQ-49 and asks for confirmation, so it is declared, not silent.",
+    "requirement_refs": ["AC-13.23", "OQ-49", "NFR-9"],
+    "rationale": "The customer has no action to take, so the effect is small, but the rule is internally inconsistent and gives the shortest notice in exactly the band OQ-49 was written for.",
+    "recommended_fix": "Show the absolute-limit warning at min(W, L - 2 minutes), or immediately if fewer than 2 minutes remain. Update the AC-13.23 example.",
+    "verification": "AC-13.23 states min(W, L - 2 min). An example with last activity at 7 h 31 min shows the warning at 7 h 58 min.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-046",
+    "fingerprint": "sha1(documentation/accuracy|docs/requirements/customer-checkout-with-order-history.md|revision 9 changelog misdescribes ac-13.15 and nfr-20 table changes)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+    "severity": "Low",
+    "category": "documentation/accuracy",
+    "title": "Revision 9 changelog misdescribes AC-13.15 and NFR-20 table changes",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "19, 352-367"
+    },
+    "evidence": "The changelog (L19) lists 'AC-13.15 cross-reference' as a change separate from 'new AC-13.14 to AC-13.23'. AC-13.15 did not exist in rev 8, so there is no cross-reference to change. It also lists 'Status column' for the NFR-20 table, but the normalised diff shows only the new keep-alive row; no other row's Source/Status cell changed. The changelog also omits the NFR-14 verification removal (CR-checkout-041).",
+    "requirement_refs": ["HG-C-1"],
+    "rationale": "HG-1 re-approval is scoped to 'changed sections only', based on this changelog. An inaccurate list misleads the approver about what to review.",
+    "recommended_fix": "Remove the 'AC-13.15 cross-reference' and 'Status column' items, or correct them to describe the actual edits.",
+    "verification": "Every item in the rev 9 changelog matches a hunk in the normalised diff against 9927ee5, and every hunk is listed.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-047",
+    "fingerprint": "sha1(accessibility/wcag|docs/requirements/customer-checkout-with-order-history.md|8-hour absolute limit has no recorded wcag 2.2.1 exception basis)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+    "severity": "Info",
+    "category": "accessibility/wcag",
+    "title": "8-hour absolute limit has no recorded WCAG 2.2.1 exception basis",
+    "location": {
+      "file": "docs/requirements/customer-checkout-with-order-history.md",
+      "lines": "280, 304, 337, 496"
+    },
+    "evidence": "NFR-9 (L337) requires WCAG 2.2 AA. Success criterion 2.2.1 requires a time limit to be adjustable or extendable unless it is real-time, essential, or longer than 20 hours. The 8-hour absolute limit is shorter than 20 hours. OQ-49 (L496) decides that the 8-hour warning has no extension, and the PRD does not record that the limit is treated as 'essential' (security) or as an accepted exception. The UX spec (c441580, section 9, HG-C-1) records an exception path only for the idle limit.",
+    "requirement_refs": ["NFR-9", "OQ-49", "AC-13.23"],
+    "rationale": "The Product Owner made this decision (OQ-49), so it is Info. The conformance rationale should still be written down so the HG-3 accessibility review does not reopen it. This is not an accessibility conformance assessment.",
+    "recommended_fix": "Add one sentence to NFR-9 or OQ-49 recording that the 8-hour absolute limit relies on the WCAG 2.2.1 'essential' exception (security control), or that it is an accepted accessibility exception.",
+    "verification": "The PRD contains the recorded basis, and the HG-1 approver confirms it.",
+    "blocking": false,
+    "status": "open"
+  },
+  {
+    "id": "CR-checkout-048",
+    "fingerprint": "sha1(design/consistency|docs/ux/customer-checkout-with-order-history.md|ux spec s-01 contradicts prd oq-49 absolute-limit warning)",
+    "reviewer": "critical-reviewer",
+    "reviewed_sha": "1f6ff05ee216d39bc52eb85d1246e1ded226070b",
+    "severity": "Info",
+    "category": "design/consistency",
+    "title": "UX spec S-01 contradicts PRD OQ-49 absolute-limit warning",
+    "location": {
+      "file": "docs/ux/customer-checkout-with-order-history.md (at c441580)",
+      "lines": "212, 474"
+    },
+    "evidence": "UX S-01 (c441580 L212) says 'The button does not extend the 8-hour absolute lifetime, and no warning is shown for it'. PRD rev 9 OQ-49 and AC-13.23 require a warning for the absolute limit, without the button and with the copy 'Your session ends at <local time>; please sign in again'. The UX copy list (L474) has no absolute-limit message. The PRD is the source of truth and the decision is the Product Owner's. The UX spec is downstream and on its own branch (not reviewed here).",
+    "requirement_refs": ["OQ-49", "AC-13.23", "UX-OQ-15"],
+    "rationale": "Without an update the prototype and the UI will build to the older UX text. This is an observation for the orchestrator, not a PRD defect.",
+    "recommended_fix": "Update UX spec S-01 and the copy list for the OQ-49 behaviour, and include the HG-C-1 outcome, before HG-2.",
+    "verification": "UX spec S-01 describes the absolute-limit warning and its copy, consistent with AC-13.23.",
+    "blocking": false,
+    "status": "open"
+  }
+]

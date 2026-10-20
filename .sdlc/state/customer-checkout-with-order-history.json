@@ -4,23 +4,39 @@
   "phase": "P1",
   "status": "blocked:P1",
   "blockers": [
-    "Not a git repository; no GitHub remote",
-    "gh CLI not installed / not authenticated; no GitHub connector to verify approvals",
-    ".github/CODEOWNERS missing",
-    "Gate role register missing (no named role holders or deputies)",
-    "docs/project-charter.md missing",
-    "HG-0 configuration not decided"
+    "gh not signed in as alextthomasagent (gh auth status: no accounts); collaborator invite unverified",
+    ".github/CODEOWNERS missing (human to copy docs/governance/CODEOWNERS.proposed)",
+    "Branch protection on main not configured (GET .../branches/main/protection -> 404 Branch not protected)",
+    "Settings deny rules for gh auth / gh pr review / git config --global not yet added (human to apply)",
+    "Phase 1 artifacts uncommitted; HG-0 PR not opened"
   ],
-  "branch": null,
-  "artifacts": {},
+  "branch": "chore/p1-initialisation",
+  "artifacts": {
+    "charter": { "path": "docs/project-charter.md", "sha": null },
+    "role_register": {
+      "path": "docs/governance/role-register.md",
+      "sha": null
+    },
+    "codeowners_proposed": {
+      "path": "docs/governance/CODEOWNERS.proposed",
+      "sha": null
+    }
+  },
   "gates": {
-    "HG-0": { "status": "pending" },
+    "HG-0": {
+      "status": "pending",
+      "note": "Enabled (default). Approver: @alextthomas"
+    },
     "HG-1": { "status": "pending" },
     "HG-2": { "status": "pending" },
     "HG-3": { "status": "pending" },
     "HG-4": { "status": "pending" },
     "HG-5": { "status": "pending" },
     "HG-6": { "status": "pending" }
+  },
+  "identities": {
+    "human_approver": "alextthomas",
+    "agent": "alextthomasagent"
   },
   "review_rounds": 0,
   "open_blocking_findings": 0,

@@ -1,0 +1,25 @@
+# Proposed .github/CODEOWNERS. Copy to .github/CODEOWNERS yourself (agents are denied).
+# Single-human team: every gate role is held by @alextthomas (docs/governance/role-register.md).
+# Never add @alextthomasagent here.
+
+# Default: every change needs Engineering Lead review (HG-5)
+*                           @alextthomas
+
+# Gate artifacts (HG-0 to HG-4)
+/docs/project-charter.md    @alextthomas
+/docs/governance/           @alextthomas
+/docs/requirements/         @alextthomas
+/docs/ux/                   @alextthomas
+/docs/design/               @alextthomas
+/docs/plans/                @alextthomas
+
+# Governed agent configuration
+/CLAUDE.md                  @alextthomas
+/.claude/                   @alextthomas
+
+# Exceptions (HG-X) and QA-owned tests
+/.sdlc/exceptions/          @alextthomas
+/tests/                     @alextthomas
+
+# Pipeline and ownership
+/.github/                   @alextthomas

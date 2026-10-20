@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Review findings",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "id",
+      "fingerprint",
+      "reviewer",
+      "reviewed_sha",
+      "severity",
+      "category",
+      "title",
+      "location",
+      "evidence",
+      "rationale",
+      "recommended_fix",
+      "verification",
+      "blocking",
+      "status"
+    ],
+    "properties": {
+      "id": { "type": "string", "pattern": "^(AR|CR)-[a-z0-9-]+-[0-9]{3}$" },
+      "fingerprint": { "type": "string" },
+      "reviewer": { "enum": ["architect-reviewer", "critical-reviewer"] },
+      "reviewed_sha": { "type": "string", "minLength": 7 },
+      "severity": { "enum": ["Critical", "High", "Medium", "Low", "Info"] },
+      "category": { "type": "string" },
+      "title": { "type": "string" },
+      "location": {
+        "type": "object",
+        "required": ["file"],
+        "properties": {
+          "file": { "type": "string" },
+          "lines": { "type": "string" }
+        }
+      },
+      "evidence": { "type": "string", "minLength": 10 },
+      "requirement_refs": { "type": "array", "items": { "type": "string" } },
+      "rationale": { "type": "string" },
+      "recommended_fix": { "type": "string" },
+      "verification": { "type": "string" },
+      "blocking": { "type": "boolean" },
+      "status": {
+        "enum": [
+          "open",
+          "in-rework",
+          "fix-proposed",
+          "verified-fixed",
+          "disputed",
+          "invalid",
+          "exception-requested",
+          "accepted"
+        ]
+      }
+    }
+  }
+}

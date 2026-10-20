@@ -1,0 +1,29 @@
+{
+  "feature": "customer-checkout-with-order-history",
+  "tier": null,
+  "phase": "P1",
+  "status": "blocked:P1",
+  "blockers": [
+    "Not a git repository; no GitHub remote",
+    "gh CLI not installed / not authenticated; no GitHub connector to verify approvals",
+    ".github/CODEOWNERS missing",
+    "Gate role register missing (no named role holders or deputies)",
+    "docs/project-charter.md missing",
+    "HG-0 configuration not decided"
+  ],
+  "branch": null,
+  "artifacts": {},
+  "gates": {
+    "HG-0": { "status": "pending" },
+    "HG-1": { "status": "pending" },
+    "HG-2": { "status": "pending" },
+    "HG-3": { "status": "pending" },
+    "HG-4": { "status": "pending" },
+    "HG-5": { "status": "pending" },
+    "HG-6": { "status": "pending" }
+  },
+  "review_rounds": 0,
+  "open_blocking_findings": 0,
+  "head_sha": null,
+  "updated_at": "2026-10-20T00:00:00Z"
+}

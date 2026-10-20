@@ -2,9 +2,9 @@
   "feature": "customer-checkout-with-order-history",
   "tier": null,
   "phase": "P3",
-  "status": "awaiting:HG-1 (HG-C-1 re-approval)",
+  "status": "awaiting:HG-2",
   "blockers": [],
-  "branch": "docs/prd-hgc1-session-keepalive",
+  "branch": "docs/ux-customer-checkout-with-order-history",
   "artifacts": {
     "charter": {
       "path": "docs/project-charter.md",
@@ -24,11 +24,16 @@
     },
     "prd": {
       "path": "docs/requirements/customer-checkout-with-order-history.md",
-      "sha": "4b3b9dd"
+      "sha": "4b3b9dd",
+      "approved_merge": "f87d5eb"
     },
     "ux_spec": {
       "path": "docs/ux/customer-checkout-with-order-history.md",
-      "sha": "c441580"
+      "revision": 4
+    },
+    "prototype": {
+      "path": "prototypes/customer-checkout-with-order-history/",
+      "build": "npm run build passed (orchestrator re-run)"
     }
   },
   "gates": {
@@ -41,7 +46,7 @@
       "decided_at": "2026-10-20T18:38:32Z"
     },
     "HG-1": {
-      "status": "stale-sections-awaiting-reapproval",
+      "status": "approved",
       "sha": "141afb0",
       "merge_sha": "9927ee5",
       "record": "PR #2",
@@ -49,11 +54,11 @@
       "decided_at": "2026-10-20T20:11:02Z",
       "decision": "Approve",
       "checkboxes": "18/18 ticked",
-      "stale_sections": "US-13, NFR-14, NFR-20, AC-13.4, AC-4.4 (HG-C-1)"
+      "reapproved_sections": "HG-C-1 (PR #4)"
     },
     "HG-2": {
-      "status": "pending",
-      "blocked_by": "HG-C-1"
+      "status": "awaiting",
+      "approver": "alextthomas"
     },
     "HG-3": {
       "status": "pending"
@@ -68,11 +73,22 @@
       "status": "pending"
     },
     "HG-C-1": {
-      "status": "accepted",
+      "status": "closed",
       "record": "Issue #3 comment",
       "decided_by": "alextthomas",
       "decided_at": "2026-10-20T20:32:45Z",
-      "next": "PRD amendment on docs/prd-hgc1-session-keepalive -> HG-1 re-approval of changed sections"
+      "next": "PRD amendment on docs/prd-hgc1-session-keepalive -> HG-1 re-approval of changed sections",
+      "resolved_by": "PR #4 (issue #3 closed)"
+    },
+    "HG-1-reapproval": {
+      "status": "approved",
+      "sha": "c093666",
+      "merge_sha": "f87d5eb",
+      "record": "PR #4",
+      "decided_by": "alextthomas",
+      "decided_at": "2026-10-20T23:14:42Z",
+      "decision": "Approve",
+      "checkboxes": "8/8 ticked"
     }
   },
   "identities": {
@@ -81,17 +97,17 @@
   },
   "review_rounds": 4,
   "open_blocking_findings": 0,
-  "head_sha": "1f6ff05",
-  "updated_at": "2026-10-20T23:11:44.043Z",
+  "head_sha": "f87d5eb",
+  "updated_at": "2026-10-20T23:42:18.844Z",
   "review_verdict": {
     "round": 4,
     "sha": "67293cc",
     "verdict": "PASS WITH NON-BLOCKING FINDINGS"
   },
   "carry_forward": [
-    "CR-checkout-036 (Medium) open — route to solution-architect in P4",
-    "CR-checkout-037 (Medium) open — route to solution-architect in P4",
-    "CR-checkout-038/039 (Low), 040 (Info) architect notes"
+    "CR-036, CR-037, CR-049 (Medium) open: route to solution-architect in P4",
+    "CR-038/039/040, CR-050 to 052 architect/QA notes",
+    "CR-048 and UX part of CR-044: UX spec update before HG-2"
   ],
   "hgc1_review_rounds": 2
 }

@@ -29,7 +29,11 @@
       "Bash(git push origin main:*)",
       "Bash(npx prisma migrate reset:*)",
       "Bash(npm publish:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(gh auth:*)",
+"Bash(gh pr review:*)",
+"Bash(git config --global:*)"
+
     ]
   },
   "hooks": {

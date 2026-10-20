@@ -2,7 +2,7 @@
   "feature": "customer-checkout-with-order-history",
   "tier": null,
   "phase": "P3",
-  "status": "in-progress:HG-C-1",
+  "status": "in-progress:P3",
   "blockers": [],
   "branch": "docs/ux-customer-checkout-with-order-history",
   "artifacts": {
@@ -24,7 +24,8 @@
     },
     "prd": {
       "path": "docs/requirements/customer-checkout-with-order-history.md",
-      "sha": "67293cc"
+      "sha": "4b3b9dd",
+      "approved_merge": "f87d5eb"
     },
     "ux_spec": {
       "path": "docs/ux/customer-checkout-with-order-history.md",
@@ -49,7 +50,7 @@
       "decided_at": "2026-10-20T20:11:02Z",
       "decision": "Approve",
       "checkboxes": "18/18 ticked",
-      "stale_sections": "US-13, NFR-14, NFR-20, AC-13.4, AC-4.4 (HG-C-1)"
+      "reapproved_sections": "HG-C-1 (PR #4)"
     },
     "HG-2": {
       "status": "pending",
@@ -68,11 +69,22 @@
       "status": "pending"
     },
     "HG-C-1": {
-      "status": "accepted",
+      "status": "closed",
       "record": "Issue #3 comment",
       "decided_by": "alextthomas",
       "decided_at": "2026-10-20T20:32:45Z",
-      "next": "PRD amendment on docs/prd-hgc1-session-keepalive -> HG-1 re-approval of changed sections"
+      "next": "PRD amendment on docs/prd-hgc1-session-keepalive -> HG-1 re-approval of changed sections",
+      "resolved_by": "PR #4 (issue #3 closed)"
+    },
+    "HG-1-reapproval": {
+      "status": "approved",
+      "sha": "c093666",
+      "merge_sha": "f87d5eb",
+      "record": "PR #4",
+      "decided_by": "alextthomas",
+      "decided_at": "2026-10-20T23:14:42Z",
+      "decision": "Approve",
+      "checkboxes": "8/8 ticked"
     }
   },
   "identities": {
@@ -81,16 +93,17 @@
   },
   "review_rounds": 4,
   "open_blocking_findings": 0,
-  "head_sha": "c441580",
-  "updated_at": "2026-10-20T20:33:42.910Z",
+  "head_sha": "f87d5eb",
+  "updated_at": "2026-10-20T23:15:47.130Z",
   "review_verdict": {
     "round": 4,
     "sha": "67293cc",
     "verdict": "PASS WITH NON-BLOCKING FINDINGS"
   },
   "carry_forward": [
-    "CR-checkout-036 (Medium) open — route to solution-architect in P4",
-    "CR-checkout-037 (Medium) open — route to solution-architect in P4",
-    "CR-checkout-038/039 (Low), 040 (Info) architect notes"
-  ]
+    "CR-036, CR-037, CR-049 (Medium) open: route to solution-architect in P4",
+    "CR-038/039/040, CR-050 to 052 architect/QA notes",
+    "CR-048 and UX part of CR-044: UX spec update before HG-2"
+  ],
+  "hgc1_review_rounds": 2
 }
